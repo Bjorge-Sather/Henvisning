@@ -1,0 +1,36 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+xmlns:bv="https://Bufdir.no/Barnevern/Generelt_v0.1.0" 
+xmlns="https://Bufdir.no/Barnevern/Melding_v0.1.0" 
+targetNamespace="https://Bufdir.no/Barnevern/Melding_v0.1.0" 
+elementFormDefault="qualified" 
+version="0.1.0">
+	<xs:import namespace="https://Bufdir.no/Barnevern/Generelt_v0.1.0" schemaLocation="Bufdir-Barnevern-Generelt_v0.1.0.xsd"/>
+	<xs:complexType name="FagsystemType">
+		<xs:sequence>
+			<xs:element name="Leverandor" type="xs:string">
+				<xs:annotation>
+					<xs:appinfo>Leverandørnavn fagsystem. Eksempler: 'Visma', 'Acos' eller 'Netcompany'.</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Navn" type="xs:string">
+				<xs:annotation>
+					<xs:appinfo>Navn fagsystem. Eksempel: 'Familia'.</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Versjon" type="bv:VersjonType">
+				<xs:annotation>
+					<xs:appinfo>Versjonsnavn fagsystem. Eksempel: 'v1.2.3'.</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MeldingHeaderType">
+		<xs:sequence>
+			<xs:element name="Id" type="bv:GUIDType"/>
+			<xs:element name="Avsender" type="bv:OrganisasjonType"/>
+			<xs:element name="Fagsystem" type="FagsystemType"/>
+			<xs:element name="Kontaktperson" type="bv:KontaktpersonType"/>
+			<xs:element name="KontaktpersonLeder" type="bv:KontaktpersonType"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Henvisning fra kommunal barneverntjeneste til Bufetat -->
+<!-- Maintainers:
+Bjorge.Saether@bufdir.no
+ -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+xmlns:bv="https://Bufdir.no/Barnevern/Generelt_v0.1.0" 
+xmlns:mld="https://Bufdir.no/Barnevern/Melding_v0.1.0" 
+xmlns="https://Bufdir/Barnevern/Henvisning_2.linje_v0.1.0" 
+targetNamespace="https://Bufdir/Barnevern/Henvisning_2.linje_v0.1.0" 
+elementFormDefault="qualified" 
+version="0.1.0">
+	<xs:import namespace="https://Bufdir.no/Barnevern/Generelt_v0.1.0" schemaLocation="Bufdir-Barnevern-Generelt_v0.1.0.xsd"/>
+	<xs:import namespace="https://Bufdir.no/Barnevern/Melding_v0.1.0" schemaLocation="Bufdir-Barnevern-Melding_v0.1.0.xsd"/>
+	<!-- Typedeklarasjoner -->
+	<xs:complexType name="BarnInformasjonHenvisningType">
+	<xs:sequence>
+			<xs:element name="Barn" type="bv:BarnType"/>
+			<xs:element name="UtelnlandskBakgrunn" type="bv:UtenlandskStatsborgerType" minOccurs="0"/>
+			<xs:element name="KjonnsIdentitet" type="bv:KjonnsIdentitetType" minOccurs="0"/>
+	</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="HenvisningType">
+		<xs:sequence>
+			<xs:element name="MeldingHeader" type="mld:MeldingHeaderType"/>
+			<xs:element name="OnskedeTjenester" type="bv:BufetatTjenesteTyper" />
+			<xs:element name="BarnInformasjon" type="BarnInformasjonHenvisningType"></xs:element>
+			<xs:element name="Omsorgspersoner" type="bv:NettverkType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Henvisning" type="HenvisningType"/>
+</xs:schema>

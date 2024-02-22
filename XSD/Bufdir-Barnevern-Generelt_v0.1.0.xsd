@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Henvisning fra kommunal barneverntjeneste til Bufetat -->
+<!-- Maintainers:
+Bjorge.Saether@bufdir.no
+ -->
+<!-- Behov for endringer i Barnevern<versjon>.xsd:
+- targetNamespace for xsd
+- Personalia
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="https://Bufdir.no/Barnevern/Generelt_v0.1.0" targetNamespace="https://Bufdir.no/Barnevern/Generelt_v0.1.0" elementFormDefault="qualified" version="0.1.0">
+	<!-- Typedeklarasjoner -->
+	<xs:simpleType name="FulltNavnType">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="PostadresseType">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="GUIDType">
+		<xs:annotation>
+			<xs:documentation>
+			GUID i format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+		</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="JaNeiType">
+		<xs:annotation>
+			<xs:documentation>
+                0 = Nei
+                1 = Ja
+            </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="1"/>
+			<xs:enumeration value="0"/>
+			<xs:enumeration value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="StatsborgerskapType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Norsk"/>
+			<xs:enumeration value="Annet"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MorsmaalType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Norsk"/>
+			<xs:enumeration value="Annet"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="EtniskTilhorighetType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Norsk"/>
+			<xs:enumeration value="Annet"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="UtenlandskStatsborgerType">
+		<xs:sequence>
+			<xs:element name="Statsborgerskap" type="StatsborgerskapType"/>
+			<xs:element name="Morsmaal" type="MorsmaalType"/>
+			<xs:element name="EtniskTilhorighet" type="EtniskTilhorighetType"/>
+			<xs:element name="BehovForTolk" type="JaNeiType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="KontaktpersonType">
+		<xs:sequence>
+			<xs:element name="Navn" type="FulltNavnType"/>
+			<xs:element name="Telefon"/>
+			<xs:element name="epost"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="FodselsdatoType">
+		<xs:annotation>
+			<xs:documentation xml:lang="no">
+                                Barnets fødselsdato. For ufødte barn oppgis termindato.
+                            </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:date">
+			<xs:minInclusive value="1998-01-01"/>
+			<xs:maxInclusive value="2029-12-31"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FodselsnummerType">
+		<xs:annotation>
+			<xs:documentation>Fødselsnummer (https://www.udi.no/ord-og-begreper/fodselsnummer/),
+                D-nummer (https://www.udi.no/ord-og-begreper/d-nummer/),
+                fødselsdato (DDMMÅÅ) + 00100,
+                fødselsdato (DDMMÅÅ) + 00200,
+                fødselsdato (DDMMÅÅ) + 55555,
+                fødselsdato (DDMMÅÅ) + 99999
+            </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="11"/>
+			<xs:maxLength value="11"/>
+			<xs:pattern value="\d{11}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="KjonnFregType">
+		<xs:annotation>
+			<xs:documentation xml:lang="no">
+                                0 = Ufødt
+                                1 = Mann / Gutt
+                                2 = Kvinne / Jente
+                            </xs:documentation>
+			<xs:appinfo xml:lang="json">
+                                {
+                                "type":"codelist",
+                                "term":"Sak",
+                                "title":"Kjønn",
+                                "path":"/Barnevern/Sak/@Kjonn",
+                                "items":[
+                                {"code":"0", "validFrom":"2022-01-01", "title":"Ufødt"},
+                                {"code":"1", "validFrom":"2022-01-01", "title":"Mann / Gutt"},
+                                {"code":"2","validFrom":"2022-01-01","title":"Kvinne / Jente"}
+                                ]
+                                }
+                            </xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="1"/>
+			<xs:enumeration value="0"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="KjonnsIdentitetType">
+		<xs:annotation>
+			<xs:documentation>
+									Brukes hvis barnes kjønnsidentitet ikke samsvarer med 'kjønn' i FREG (mann/kvinne)
+									</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Jente"/>
+			<xs:enumeration value="Gutt"/>
+			<xs:enumeration value="Annet"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DUFNummerType">
+		<xs:annotation>
+			<xs:documentation>DUF-nummer (https://www.udi.no/ord-og-begreper/duf-nummer/)
+                            </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="12"/>
+			<xs:maxLength value="12"/>
+			<xs:pattern value="\d{12}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="BarnType">
+		<xs:sequence>
+			<xs:element name="Fodselsnummer" type="FodselsnummerType" minOccurs="1"/>
+			<xs:element name="Fodseldato" type="FodselsdatoType" minOccurs="1"/>
+			<xs:element name="KjonnFreg" type="KjonnFregType" minOccurs="1"/>
+			<xs:element name="DUFnummer" type="DUFNummerType"/>
+			<xs:element name="Ufodt" type="JaNeiType"/>
+			<xs:element name="EMA" type="JaNeiType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="NettverkRelasjonType">
+		<xs:annotation>
+			<xs:documentation xml:lang="no">
+                1 = Mor
+                2 = Far
+				9 = Annet
+            </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="1"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="9"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="NettverkPersonType">
+		<xs:sequence>
+			<xs:element name="Relasjon" type="NettverkRelasjonType"/>
+			<xs:element name="Personalia" type="KontaktpersonType"/>
+			<xs:element name="BorMedBarnet" type="JaNeiType"/>
+			<xs:element name="Adresse" type="PostadresseType"/>
+			<xs:element name="UtenlandskStatsborger" type="UtenlandskStatsborgerType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NettverkType">
+		<xs:sequence>
+			<xs:element name="Person" type="NettverkPersonType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="VersjonType">
+		<xs:annotation>
+			<xs:documentation>
+			   Versjonsnummer i formen '1', '1.1', '1.1.1', '1.1.1.2345'
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="^(\d+\.)?(\d+\.)?(\d+\.)?(\*|\d+)$"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="BufetatTjenesteType">
+		<xs:annotation>
+		<xs:documentation>
+			1 = Senter for foreldre og barn hjelpetiltak 
+			2 = Fosterhjem 
+			3 = Omsorgsinstitusjon 
+			4 = Behandlingsinstitusjon 
+			5 = Senter for foreldre og barn utredning		
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+		<xs:enumeration value="1" />
+		<xs:enumeration value="2" />
+		<xs:enumeration value="3" />
+		<xs:enumeration value="4" />
+		<xs:enumeration value="5" />
+	
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="BufetatTjenesteTyper">
+		<xs:annotation><xs:documentation>
+		Tjenestetyper 2.linje barnevern levert av Bufetat
+		</xs:documentation></xs:annotation>
+		<xs:sequence>
+		  <xs:element name="Tjeneste" type="BufetatTjenesteType" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrganisasjonType">
+		<xs:sequence>
+			<xs:element name="Organisasjonsnummer">
+				<xs:annotation>
+					<xs:documentation>
+                    Organisasjonsnummer, avgiverkommune.
+                </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="9"/>
+						<xs:maxLength value="9"/>
+						<xs:pattern value="\d{9}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Kommunenummer">
+				<xs:annotation>
+					<xs:documentation>
+                    4-sifret kommunenummer, avgiverkommune.
+                </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="4"/>
+						<xs:maxLength value="4"/>
+						<xs:pattern value="\d{4}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Kommunenavn" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Navn, avgiverkommune.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="250"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Bydelsnummer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>2-sifret bydelsnummer. Benyttes kun for kommuner med bydeler.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="2"/>
+						<xs:maxLength value="2"/>
+						<xs:pattern value="\d{2}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Bydelsnavn" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Bydelsnavn. Eksempel: 'Gamle Oslo'. Benyttes kun for kommuner med bydeler.
+                </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="250"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
