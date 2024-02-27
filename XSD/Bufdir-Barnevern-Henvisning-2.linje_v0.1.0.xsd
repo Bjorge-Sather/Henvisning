@@ -16,16 +16,31 @@ version="0.1.0">
 	<xs:complexType name="BarnInformasjonHenvisningType">
 	<xs:sequence>
 			<xs:element name="Barn" type="bv:BarnType"/>
-			<xs:element name="UtelnlandskBakgrunn" type="bv:UtenlandskStatsborgerType" minOccurs="0"/>
+			<xs:element name="UtenlandskBakgrunn" type="bv:UtenlandskStatsborgerType" minOccurs="0"/>
 			<xs:element name="KjonnsIdentitet" type="bv:KjonnsIdentitetType" minOccurs="0"/>
 	</xs:sequence>
+
 	</xs:complexType>
+		<xs:complexType name="BistandType">
+		<xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+
 	<xs:complexType name="HenvisningType">
 		<xs:sequence>
 			<xs:element name="MeldingHeader" type="mld:MeldingHeaderType"/>
 			<xs:element name="OnskedeTjenester" type="bv:BufetatTjenesteTyper" />
-			<xs:element name="BarnInformasjon" type="BarnInformasjonHenvisningType"></xs:element>
+			<xs:element name="BarnInformasjon" type="BarnInformasjonHenvisningType" />
 			<xs:element name="Omsorgspersoner" type="bv:NettverkType"/>
+			<xs:element name="Vedtak" type="bv:VedtakType"/>
+			<xs:element name="Bistand" type="BistandType"/>
+			<xs:element name="Plan" type="bv:PlanType"/>
+			<xs:element name="Medvirkning" type="bv:MedvirkningType" />
+			<xs:element name="BarnetsSituasjon" type="bv:BarnetsSituasjonType" >
+		<xs:annotation>
+			<xs:documentation>Barnets nåsituasjon beskrevet med utgangspunkt i kunnskapsmodellens områder</xs:documentation>
+		</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:element name="Henvisning" type="HenvisningType"/>

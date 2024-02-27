@@ -44,7 +44,7 @@ Bjorge.Saether@bufdir.no
 			<xs:enumeration value="Annet"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:simpleType name="MorsmaalType">
+	<xs:simpleType name="MorsmalType">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="Norsk"/>
 			<xs:enumeration value="Annet"/>
@@ -59,7 +59,7 @@ Bjorge.Saether@bufdir.no
 	<xs:complexType name="UtenlandskStatsborgerType">
 		<xs:sequence>
 			<xs:element name="Statsborgerskap" type="StatsborgerskapType"/>
-			<xs:element name="Morsmaal" type="MorsmaalType"/>
+			<xs:element name="Morsml" type="MorsmalType"/>
 			<xs:element name="EtniskTilhorighet" type="EtniskTilhorighetType"/>
 			<xs:element name="BehovForTolk" type="JaNeiType"/>
 		</xs:sequence>
@@ -174,6 +174,36 @@ Bjorge.Saether@bufdir.no
 			<xs:enumeration value="9"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="KontaktFrekvensType">
+		<xs:annotation>
+			<xs:documentation xml:lang="no">
+                1 = Regelmessig
+                2 = Sporadisk
+				3 = Ingen
+            </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="1"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OmsorgType">
+		<xs:annotation>
+			<xs:documentation xml:lang="no">
+                1 = Foreldreansvar
+                2 = Daglig omsorg
+				3 = Ingen
+            </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="1"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:complexType name="NettverkPersonType">
 		<xs:sequence>
 			<xs:element name="Relasjon" type="NettverkRelasjonType"/>
@@ -181,11 +211,64 @@ Bjorge.Saether@bufdir.no
 			<xs:element name="BorMedBarnet" type="JaNeiType"/>
 			<xs:element name="Adresse" type="PostadresseType"/>
 			<xs:element name="UtenlandskStatsborger" type="UtenlandskStatsborgerType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="KontaktFrekvens" type="KontaktFrekvensType">
+			<xs:annotation><xs:documentation>Kontakt med barnet</xs:documentation></xs:annotation>
+			</xs:element>
+			
+			<xs:element name="Omsorg" type="OmsorgType">
+			<xs:annotation><xs:documentation>Omsorgssituasjon</xs:documentation></xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="NettverkType">
 		<xs:sequence>
 			<xs:element name="Person" type="NettverkPersonType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VedtakType">
+		<xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PlanType">
+		<xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+											<xs:simpleType name="KunnskapsmodellOmradeType">
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="Helse"/>
+													<xs:enumeration value="Barnehage og skole"/>
+													<xs:enumeration value="Følelser og uttrykk"/>
+													<xs:enumeration value="Venner og fritid"/>
+													<xs:enumeration value="Grunnleggende omsorg"/>
+													<xs:enumeration value="Følelsesmessig tilgjengelighet"/>
+													<xs:enumeration value="Stimulering og veiledning"/>
+													<xs:enumeration value="Beskyttelse"/>
+													<xs:enumeration value="Familieforhold"/>
+													<xs:enumeration value="Bolig, økonomi og arbeid"/>
+													<xs:enumeration value="Nettverk og sosial integrering"/>
+												</xs:restriction>
+											</xs:simpleType>
+	<xs:complexType name="OmradeSituasjonType">
+	<xs:sequence>
+		<xs:element name="Omrade" type="KunnskapsmodellOmradeType">
+		<xs:annotation>
+			<xs:documentation>
+Område i kunnskapsmodellen
+			</xs:documentation>
+		</xs:annotation>
+		</xs:element>
+		<xs:element name="Beskrivelse" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+			Vurdering av barnets situasjon på området
+			</xs:documentation>
+		</xs:annotation>
+		</xs:element>
+	</xs:sequence>
+	</xs:complexType>										
+	<xs:complexType name="BarnetsSituasjonType">
+		<xs:sequence>
+			<xs:element name="Omrade" type="OmradeSituasjonType" maxOccurs="unbounded"></xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:simpleType name="VersjonType">
@@ -198,10 +281,9 @@ Bjorge.Saether@bufdir.no
 			<xs:pattern value="^(\d+\.)?(\d+\.)?(\d+\.)?(\*|\d+)$"/>
 		</xs:restriction>
 	</xs:simpleType>
-	
 	<xs:simpleType name="BufetatTjenesteType">
 		<xs:annotation>
-		<xs:documentation>
+			<xs:documentation>
 			1 = Senter for foreldre og barn hjelpetiltak 
 			2 = Fosterhjem 
 			3 = Omsorgsinstitusjon 
@@ -210,21 +292,21 @@ Bjorge.Saether@bufdir.no
 			</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-		<xs:enumeration value="1" />
-		<xs:enumeration value="2" />
-		<xs:enumeration value="3" />
-		<xs:enumeration value="4" />
-		<xs:enumeration value="5" />
-	
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+			<xs:enumeration value="4"/>
+			<xs:enumeration value="5"/>
 		</xs:restriction>
 	</xs:simpleType>
-	
 	<xs:complexType name="BufetatTjenesteTyper">
-		<xs:annotation><xs:documentation>
+		<xs:annotation>
+			<xs:documentation>
 		Tjenestetyper 2.linje barnevern levert av Bufetat
-		</xs:documentation></xs:annotation>
+		</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
-		  <xs:element name="Tjeneste" type="BufetatTjenesteType" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="Tjeneste" type="BufetatTjenesteType" minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="OrganisasjonType">
@@ -291,6 +373,93 @@ Bjorge.Saether@bufdir.no
 						<xs:maxLength value="250"/>
 					</xs:restriction>
 				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="MedvirkningAktorType">
+		<xs:annotation>
+			<xs:appinfo>
+				<caption>"Hvem har medvirket i prosessen?"></caption>
+			</xs:appinfo>
+			<xs:documentation>
+		1 = Barnet
+		2 = Mor
+		3 = Far
+		4 = Verge
+		5 = Tillitsperson
+		6 = Andre
+		</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+			<xs:enumeration value="4"/>
+			<xs:enumeration value="5"/>
+			<xs:enumeration value="6"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="MedvirkningType">
+		<xs:annotation>
+			<xs:appinfo>
+				<caption>Medvirkning</caption>
+				<description>Barns rett til medvirkning omfatter både en rett for barnet til å få relevant informasjon tilpasset barnets alder og modenhet, en rett til å uttrykke seg fritt og uhindret, retten til å bli lyttet til og at barnets mening skal tillegges vekt ved beslutninger som berører barnet."</description>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Aktor" type="MedvirkningAktorType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:appinfo><caption/>"Hvem har medvirket i prosessen?"></xs:appinfo>
+					<xs:documentation>Barnet, Mor, Far, Verge, Tillitsperson, Andre</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InformasjonGittBarnet" type="xs:string">
+				<xs:annotation>
+					<xs:appinfo>
+						<caption>Hvilken informasjon om fosterhjem og henvisning til fosterhjem er gitt til barnet?
+					Hvordan har barnevernstjenesten sikret at barnet utelukkende har fått og forstått informasjon tilpasset alder og modenhet?"</caption>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Rammer" type="xs:string">
+				<xs:annotation>
+					<xs:appinfo>
+						<caption>Rammer for medvirkning</caption>
+						<description>På hvilken måte er det lagt til rette for trygge rammer for barnets deltakelse?
+Hvor, når, med hvem og hvordan har barnet medvirket?
+Har barnet fritt og uhindret fått fylle ut sin egen del av skjemaet?
+						</description>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VektingAvBarnetsSysnpunkt">
+				<xs:annotation>
+					<xs:appinfo>
+						<caption>Vekting av barnets synspunkt</caption>
+						<description>-	Hvordan er barnets synspunkter, meninger og tanker vektlagt i forhold som vedrører barnet?
+-	Hvilke ønsker har barnet knyttet til medvirkning fremover i tid?
+</description>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ForeldrenesMedvirkning" type="xs:string">
+				<xs:annotation>
+					<xs:appinfo>
+						<caption>Foreldrenes medvirkning</caption>
+						<description>-	Hvordan har barnevernstjenesten sikret at foreldrenes rett til medvirkning er ivaretatt i henvisningsprosessen?
+-	På hvilke måter har foreldrene medvirket i henvisningsprosessen
+-	Hvilke ønsker har foreldrene for fosterhjemmet og barnets opphold der?
+-	Hvordan har foreldrenes synspunkter og ønsker blitt vurdert i henvisningsprosessen?
+</description>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AndreOpplysninger">
+				<xs:annotation>
+					<xs:appinfo>
+						<caption>Andre relevante opplysninger og informasjon om medvirkningsprosessen</caption>
+					</xs:appinfo>
+				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
