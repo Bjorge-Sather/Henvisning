@@ -1,46 +1,168 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Henvisning fra kommunal barneverntjeneste til Bufetat -->
-<!-- Maintainers:
-Bjorge.Saether@bufdir.no
+<!-- Maintainer:
+bjorge.saether@bufdir.no
  -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-xmlns:bv="https://Bufdir.no/Barnevern/Generelt_v0.1.0" 
-xmlns:mld="https://Bufdir.no/Barnevern/Melding_v0.1.0" 
-xmlns="https://Bufdir/Barnevern/Henvisning_2.linje_v0.1.0" 
-targetNamespace="https://Bufdir/Barnevern/Henvisning_2.linje_v0.1.0" 
-elementFormDefault="qualified" 
-version="0.1.0">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bv="https://Bufdir.no/Barnevern/Generelt_v0.1.0" xmlns:mld="https://Bufdir.no/Barnevern/Melding_v0.1.0" xmlns="https://Bufdir/Barnevern/Henvisning_2.linje_v0.1.0" targetNamespace="https://Bufdir/Barnevern/Henvisning_2.linje_v0.1.0" elementFormDefault="qualified" version="0.1.0">
 	<xs:import namespace="https://Bufdir.no/Barnevern/Generelt_v0.1.0" schemaLocation="Bufdir-Barnevern-Generelt_v0.1.0.xsd"/>
 	<xs:import namespace="https://Bufdir.no/Barnevern/Melding_v0.1.0" schemaLocation="Bufdir-Barnevern-Melding_v0.1.0.xsd"/>
 	<!-- Typedeklarasjoner -->
 	<xs:complexType name="BarnInformasjonHenvisningType">
-	<xs:sequence>
+		<xs:sequence>
 			<xs:element name="Barn" type="bv:BarnType"/>
 			<xs:element name="UtenlandskBakgrunn" type="bv:UtenlandskStatsborgerType" minOccurs="0"/>
 			<xs:element name="KjonnsIdentitet" type="bv:KjonnsIdentitetType" minOccurs="0"/>
-	</xs:sequence>
-
-	</xs:complexType>
-		<xs:complexType name="BistandType">
-		<xs:sequence>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:simpleType name="BufetatBistandTypeType">
+		<xs:annotation>
+			<xs:documentation>
+                    1.1 = Barnvernsinstitusjoner (gjelder alle typer barnevernsinstitusjoner)
+                    2.2 = Fosterhjem utenfor familie og nære nettverk
+                    2.3 = Statlige familiehjem (gjelder fosterhjem som staten har ansvar for)
+                    2.4 = Fosterhjem etter BVL2021 § 6-3 (tidligere BVL1992 § 4-27)
+                    2.5 = Beredskapshjem utenom familie og nære nettverk
+                    3.1 = MST
+                    3.2 = PMTO
+                    3.3 = FFT
+                    3.7 = Andre hjemmebaserte tiltak (gjelder andre tiltak i hjemmet som følger en spesiell metodikk og
+                    som gjenomføres på en systematisk måte) (krever presisering)
+                    3.8 = Sentre for foreldre og barn
+                    7.1 = BVL2021 § 3-7 (tidligere BVL1992 § 4-10) medisinsk undersøkelse og behandling
+                </xs:documentation>
+			<xs:appinfo>
+				<subsetOf>"bv:TiltakTypeType"</subsetOf>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="bv:TiltakTypeType">
+			<xs:enumeration value="1.1"/>
+			<xs:enumeration value="2.2"/>
+			<xs:enumeration value="2.3"/>
+			<xs:enumeration value="2.4"/>
+			<xs:enumeration value="2.5"/>
+			<xs:enumeration value="3.1"/>
+			<xs:enumeration value="3.2"/>
+			<xs:enumeration value="3.3"/>
+			<xs:enumeration value="3.7"/>
+			<xs:enumeration value="3.8"/>
+			<xs:enumeration value="7.1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ViderePlanType">
+		<xs:annotation>
+			<xs:documentation>
+				1 = Ikke nye tiltak
+				2 = Hjelpetiltak i hjemmet
+				3 = Fosterhjem
+				4 = Institusjon
+				5 = Etableres i egen bolig
+				9 = Annet
+            </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+			<xs:enumeration value="4"/>
+			<xs:enumeration value="5"/>
+			<xs:enumeration value="9"/>
+		</xs:restriction>
+	</xs:simpleType>
 
+	<xs:complexType name="BufetatBistandType">
+		<xs:sequence>
+			<xs:element name="Type" type="BufetatBistandTypeType"/>
+			<xs:element name="DatoFra" type="xs:date"/>
+			<xs:element name="DatoTil" type="xs:date"/>
+			<xs:element name="Utdyping" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FosterhjemRammerType">
+		<xs:annotation>
+			<xs:documentation>Rammer for fosterhjemmet</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GeografiskBeliggenhet" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Hensyn til geografisk beliggenhet</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="KanHaDyr" type="bv:JaNeiType">
+				<xs:annotation>
+					<xs:documentation>Kan fosterhjemmet ha dyr?</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FasteMedisiner" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Barnets faste medisiner</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Allergier" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Allergier og/eller andre hensyn</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BegrensningUtreise" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Eventuelle begrensninger for barnet til å reise ut av landet</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SamvaerPersoner" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Hvem skal barnet ha samvær/kontakt med, og hvordan. Og skal det tilrettelegges for dette?</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SamarbeidFamilie" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Hvilke forhold vil være viktig ved samarbeid med barnets foreldre og øvrig familie?</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ForsterkningstitltakBehov" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Er det behov for forsterkningstiltak som frikjøp fra jobb, særskilt veiledning eller avlastning?</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SkjermetAdresse" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Er det behov for sperret adresse, sikkerhetsplan eller andre sikkerhetstiltak?</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Annet" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Annet</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
 	<xs:complexType name="HenvisningType">
 		<xs:sequence>
 			<xs:element name="MeldingHeader" type="mld:MeldingHeaderType"/>
-			<xs:element name="OnskedeTjenester" type="bv:BufetatTjenesteTyper" />
-			<xs:element name="BarnInformasjon" type="BarnInformasjonHenvisningType" />
+			<xs:element name="OnsketBistand" type="BufetatBistandType"/>
+			<xs:element name="BarnInformasjon" type="BarnInformasjonHenvisningType"/>
 			<xs:element name="Omsorgspersoner" type="bv:NettverkType"/>
+			<xs:element name="Dagtilbud" type="bv:DagtilbudType"/>
 			<xs:element name="Vedtak" type="bv:VedtakType"/>
-			<xs:element name="Bistand" type="BistandType"/>
-			<xs:element name="Plan" type="bv:PlanType"/>
-			<xs:element name="Medvirkning" type="bv:MedvirkningType" />
-			<xs:element name="BarnetsSituasjon" type="bv:BarnetsSituasjonType" >
-		<xs:annotation>
-			<xs:documentation>Barnets nåsituasjon beskrevet med utgangspunkt i kunnskapsmodellens områder</xs:documentation>
-		</xs:annotation>
+			<xs:element name="IndividuellPlan" type="bv:IndividuellPlanType"/>
+			<xs:element name="Medvirkning" type="bv:MedvirkningType"/>
+			<xs:element name="BarnetsSituasjon" type="bv:BarnetsSituasjonType">
+				<xs:annotation>
+					<xs:documentation>Barnets nåsituasjon beskrevet med utgangspunkt i kunnskapsmodellens områder</xs:documentation>
+				</xs:annotation>
 			</xs:element>
+			<xs:element name="BistandSamletBehov" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>
+			   Samlet vurdering av barnets behov for bistand.
+			   Her gjøres den samlede vurderingen av barnets behov for bistand. I dette inngår en totalvurdering av den beskyttelse og risiko som omgir barnet, og av barnets mottagelighet for ønsket tiltak. Dette innebefatter en samlet vurdering av de behov barnet må få tilfredsstilt for å kunne ha god utvikling. Barnets beste skal være et grunnleggende hensyn i dette.
+			</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PlanEtterOnsketTiltak" type="ViderePlanType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Kommunens foreløpige plan etter avslutning av tiltak</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FosterhjemRammer" type="FosterhjemRammerType"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:element name="Henvisning" type="HenvisningType"/>

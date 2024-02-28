@@ -212,11 +212,14 @@ Bjorge.Saether@bufdir.no
 			<xs:element name="Adresse" type="PostadresseType"/>
 			<xs:element name="UtenlandskStatsborger" type="UtenlandskStatsborgerType" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="KontaktFrekvens" type="KontaktFrekvensType">
-			<xs:annotation><xs:documentation>Kontakt med barnet</xs:documentation></xs:annotation>
+				<xs:annotation>
+					<xs:documentation>Kontakt med barnet</xs:documentation>
+				</xs:annotation>
 			</xs:element>
-			
 			<xs:element name="Omsorg" type="OmsorgType">
-			<xs:annotation><xs:documentation>Omsorgssituasjon</xs:documentation></xs:annotation>
+				<xs:annotation>
+					<xs:documentation>Omsorgssituasjon</xs:documentation>
+				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
@@ -225,52 +228,394 @@ Bjorge.Saether@bufdir.no
 			<xs:element name="Person" type="NettverkPersonType" minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="VedtakType">
-		<xs:sequence>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="PlanType">
-		<xs:sequence>
-		</xs:sequence>
-	</xs:complexType>
-											<xs:simpleType name="KunnskapsmodellOmradeType">
-												<xs:restriction base="xs:string">
-													<xs:enumeration value="Helse"/>
-													<xs:enumeration value="Barnehage og skole"/>
-													<xs:enumeration value="Følelser og uttrykk"/>
-													<xs:enumeration value="Venner og fritid"/>
-													<xs:enumeration value="Grunnleggende omsorg"/>
-													<xs:enumeration value="Følelsesmessig tilgjengelighet"/>
-													<xs:enumeration value="Stimulering og veiledning"/>
-													<xs:enumeration value="Beskyttelse"/>
-													<xs:enumeration value="Familieforhold"/>
-													<xs:enumeration value="Bolig, økonomi og arbeid"/>
-													<xs:enumeration value="Nettverk og sosial integrering"/>
-												</xs:restriction>
-											</xs:simpleType>
-	<xs:complexType name="OmradeSituasjonType">
-	<xs:sequence>
-		<xs:element name="Omrade" type="KunnskapsmodellOmradeType">
+	<xs:simpleType name="IndividuellPlanStatusType">
 		<xs:annotation>
-			<xs:documentation>
+			<xs:documentation xml:lang="no">
+				1 = Foreligger
+				2 = Under arbeid
+				3 = Vurderes
+				4 = Ikke aktuell
+            </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Foreligger"/>
+			<xs:enumeration value="Under arbeid"/>
+			<xs:enumeration value="Vurderes"/>
+			<xs:enumeration value="Ikke aktuell"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="IndividuellPlanType">
+		<xs:sequence>
+			<xs:element name="Status" type="IndividuellPlanStatusType"/>
+			<xs:element name="Kontaktperson">
+				<xs:annotation>
+					<xs:documentation xml:lang="no">Skriv inn fult navn på: Kontaktperson/koordinator for individuell plan</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="KunnskapsmodellOmradeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Helse"/>
+			<xs:enumeration value="Barnehage og skole"/>
+			<xs:enumeration value="Følelser og uttrykk"/>
+			<xs:enumeration value="Venner og fritid"/>
+			<xs:enumeration value="Grunnleggende omsorg"/>
+			<xs:enumeration value="Følelsesmessig tilgjengelighet"/>
+			<xs:enumeration value="Stimulering og veiledning"/>
+			<xs:enumeration value="Beskyttelse"/>
+			<xs:enumeration value="Familieforhold"/>
+			<xs:enumeration value="Bolig, økonomi og arbeid"/>
+			<xs:enumeration value="Nettverk og sosial integrering"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="OmradeSituasjonType">
+		<xs:sequence>
+			<xs:element name="Omrade" type="KunnskapsmodellOmradeType">
+				<xs:annotation>
+					<xs:documentation>
 Område i kunnskapsmodellen
 			</xs:documentation>
-		</xs:annotation>
-		</xs:element>
-		<xs:element name="Beskrivelse" type="xs:string">
-		<xs:annotation>
-			<xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Beskrivelse" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>
 			Vurdering av barnets situasjon på området
 			</xs:documentation>
-		</xs:annotation>
-		</xs:element>
-	</xs:sequence>
-	</xs:complexType>										
-	<xs:complexType name="BarnetsSituasjonType">
-		<xs:sequence>
-			<xs:element name="Omrade" type="OmradeSituasjonType" maxOccurs="unbounded"></xs:element>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="BarnetsSituasjonType">
+		<xs:sequence>
+			<xs:element name="Omrade" type="OmradeSituasjonType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="DagtilbudTypeType">
+		<xs:annotation>
+			<xs:documentation xml:lang="no">
+                1 = Ingen
+                2 = Barnehage
+				3 = Skole
+				3 = Arbeid
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+			<xs:enumeration value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="DagtilbudType">
+		<xs:sequence>
+			<xs:element name="Type" type="DagtilbudTypeType">
+			</xs:element>
+			<xs:element name="DagtilbudNavn" type="xs:string">
+			</xs:element>
+			<xs:element name="DagtilbudAdresse" type="xs:string">
+			</xs:element>
+			<xs:element name="Regelemessig" type="JaNeiType">
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LovhjemmelType">
+		<xs:sequence>
+			<xs:element name="Lov">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="BVL"/>
+						<xs:enumeration value="BVL2021"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Kapittel">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="3"/>
+						<xs:pattern value="\d+[a-z]*"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Paragraf">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="4"/>
+						<xs:pattern value="\d+[a-z]*"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Ledd" minOccurs="0" maxOccurs="unbounded">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="3"/>
+						<xs:pattern value="\d+"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Bokstav" minOccurs="0" maxOccurs="unbounded">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="1"/>
+						<xs:pattern value="[a-z]"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Punktum" minOccurs="0" maxOccurs="unbounded">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="3"/>
+						<xs:pattern value="\d+"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="VedtakStatusType">
+		<xs:annotation>
+			<xs:documentation>
+                                1 = Godkjent
+                                2 = Begjæring oversendt nemnd
+                                3 = Utgår / Bortfalt etter BVL
+                                4 = Avslått / Avsluttet
+                            </xs:documentation>
+			<xs:appinfo xml:lang="json">
+                                {
+                                "type":"codelist",
+                                "term":"Vedtak",
+                                "title":"Status",
+                                "path":"/Barnevern/Sak/Vedtak/Status/@Kode",
+                                "items":[
+                                {"code" : "1", "validFrom" : "2022-01-01", "title" : "Godkjent"},
+                                {"code" : "2", "validFrom" : "2022-01-01", "title" : "Begjæring oversendt nemnd "},
+                                {"code" : "3", "validFrom" : "2022-01-01", "title" : "Utgår / Bortfalt etter BVL "},
+                                {"code" : "4", "validFrom" : "2022-01-01", "title" : "Avslått / Avsluttet "}
+                                ]
+                                }
+                            </xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+			<xs:enumeration value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="VedtakType">
+		<xs:annotation>
+			<xs:documentation/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Lovhjemmel" type="LovhjemmelType"/>
+			<xs:element name="JmfrLovhjemmel" type="LovhjemmelType" minOccurs="0" maxOccurs="3"/>
+			<xs:element name="Status" type="VedtakStatusType"/>
+			<xs:element name="Dato" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+                    Dato vedtak fattet.
+                </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="TiltakTypeType">
+		<xs:annotation>
+			<xs:documentation>
+                    1.1 = Barnvernsinstitusjoner (gjelder alle typer barnevernsinstitusjoner)
+                    1.2 = Plassering i institusjon etter annen lov
+                    1.99 = Andre tiltak (krever presisering)
+                    2.1 = Fosterhjem i familie og nære nettverk
+                    2.2 = Fosterhjem utenfor familie og nære nettverk
+                    2.3 = Statlige familiehjem (gjelder fosterhjem som staten har ansvar for)
+                    2.4 = Fosterhjem etter BVL2021 § 6-3 (tidligere BVL1992 § 4-27)
+                    2.5 = Beredskapshjem utenom familie og nære nettverk
+                    2.6 = Midlertidig hjem i familie og nære nettverk
+                    2.99 = Andre tiltak (krever presisering)
+                    3.1 = MST
+                    3.2 = PMTO
+                    3.3 = FFT
+                    3.4 = Weber Stratton
+                    3.5 = ICDP
+                    3.6 = Marte Meo
+                    3.7 = Andre hjemmebaserte tiltak (gjelder andre tiltak i hjemmet som følger en spesiell metodikk og
+                    som gjenomføres på en systematisk måte) (krever presisering)
+                    3.8 = Sentre for foreldre og barn
+                    3.9 = Vedtak om råd og veiledning
+                    3.10 = Hjemmekonsulent/miljøarbeider
+                    3.99 = Andre tiltak (krever presisering)
+                    4.1 = Barnehage
+                    4.2 = SFO/ Aktivitetsskole
+                    4.3 = Fritidsaktiviteter
+                    4.4 = Økonomisk hjelp for øvrig (gjelder økonomisk hjelp som ikke inngår i 4.1, 4.2 og 4.3)
+                    4.5 = Besøkshjem/ avlastningstiltak
+                    4.6 = Støttekontakt
+                    4.7 = Samtalegrupper/ barnegrupper (gjelder strukturerte samtale- og aktivitetstilbud for
+                    aldersbestemte grupper).
+                    4.8 = Utdanning og arbeid (gjelder oppfølging og støtte for å styrke barn og ungdoms tilknytning til
+                    skole eller arbeid)
+                    4.9 = ART
+                    4.99 = Andre tiltak (krever presisering)
+                    5.1 = Frivillig tilsyn i hjemmet (gjelder der foreldre har samtykket til tilsyn)
+                    5.2 = Pålagt tilsyn i hjemmet (gjelder der tilsyn skjer etter vedtak i fylkesnemnd)
+                    5.3 = Tilsyn under samvær
+                    5.4 = Ruskontroll
+                    5.99 = Andre tiltak (krever presisering)
+                    6.1 = Familieråd
+                    6.2 = Nettverksmøter (Strukturerte dialogmøter som består av barneverntjenesten, foreldre og ungdom
+                    og andre personer som er viktige i ungdommens liv. Invitasjon av deltakere skjer i samråd mellom
+                    barneverntjenesten, ungdom og foreldre)
+                    6.3 = Individuell plan
+                    6.4 = Deltakelse i ansvarsgruppe
+                    6.99 = Andre tiltak (krever presisering)
+                    7.1 = BVL2021 § 3-7 (tidligere BVL1992 § 4-10) medisinsk undersøkelse og behandling
+                    7.2 = BVL2021 § 3-8 (tidligere BVL1992 § 4-11) behandling av barn med særlige opplæringsbehov
+                    7.3 = Psykisk helsehjelp for barn og unge (Gjelder ikke ved henvisninger, men når barn får
+                    behandling av psykolog eller innen psykisk helsevern/BUP)
+                    7.99 = Andre tiltak (krever presisering)
+                    8.1 = Økonomisk hjelp til egen bolig/hybel
+                    8.2 = Bolig med oppfølging (inkluderer også bofellesskap)
+                    8.3 = Botreningskurs
+                    8.99 = Andre tiltak (krever presisering)
+                </xs:documentation>
+			<xs:appinfo xml:lang="json">
+                    {
+                    "type":"codelist",
+                    "term":"Tiltak",
+                    "title":"Kategori",
+                    "path":"/Barnevern/Sak/Tiltak/Kategori/@Kode",
+                    "items":[
+                    {"code" : "1.1", "validFrom" : "2013-01-01", "title" : "Barnvernsinstitusjoner (gjelder alle typer
+                    barnevernsinstitusjoner)"},
+                    {"code" : "1.2", "validFrom" : "2013-01-01", "title" : "Plassering i institusjon etter annen lov"},
+                    {"code" : "1.99", "validFrom" : "2013-01-01", "title" : "Andre tiltak (krever presisering)"},
+                    {"code" : "2.1", "validFrom" : "2013-01-01", "title" : "Fosterhjem i familie og nære nettverk"},
+                    {"code" : "2.2", "validFrom" : "2013-01-01", "title" : "Fosterhjem utenfor familie og nære
+                    nettverk"},
+                    {"code" : "2.3", "validFrom" : "2013-01-01", "title" : "Statlige familiehjem (gjelder fosterhjem som
+                    staten har ansvar for)"},
+                    {"code" : "2.4", "validFrom" : "2013-01-01", "title" : "Fosterhjem etter BVL2021 § 6-3 (tidligere
+                    BVL1992 § 4-27)"},
+                    {"code" : "2.5", "validFrom" : "2013-01-01", "title" : "Beredskapshjem utenom familie og nære
+                    nettverk"},
+                    {"code" : "2.6", "validFrom" : "2021-01-01", "title" : "Midlertidig hjem i familie og nære
+                    nettverk"},
+                    {"code" : "2.99", "validFrom" : "2013-01-01", "title" : "Andre tiltak (krever presisering)"},
+                    {"code" : "3.1", "validFrom" : "2013-01-01", "title" : "MST"},
+                    {"code" : "3.2", "validFrom" : "2013-01-01", "title" : "PMTO"},
+                    {"code" : "3.3", "validFrom" : "2013-01-01", "title" : "FFT"},
+                    {"code" : "3.4", "validFrom" : "2013-01-01", "title" : "Weber Stratton"},
+                    {"code" : "3.5", "validFrom" : "2013-01-01", "title" : "ICDP"},
+                    {"code" : "3.6", "validFrom" : "2013-01-01", "title" : "Marte Meo"},
+                    {"code" : "3.7", "validFrom" : "2013-01-01", "title" : "Andre hjemmebaserte tiltak (gjelder andre
+                    tiltak i hjemmet som følger en spesiell metodikk og som gjenomføres på en systematisk måte) (krever
+                    presisering)"},
+                    {"code" : "3.8", "validFrom" : "2013-01-01", "title" : "Sentre for foreldre og barn"},
+                    {"code" : "3.9", "validFrom" : "2013-01-01", "title" : "Vedtak om råd og veiledning"},
+                    {"code" : "3.10", "validFrom" : "2013-01-01", "title" : "Hjemmekonsulent/miljøarbeider"},
+                    {"code" : "3.99", "validFrom" : "2013-01-01", "title" : "Andre tiltak (krever presisering)"},
+                    {"code" : "4.1", "validFrom" : "2013-01-01", "title" : "Barnehage"},
+                    {"code" : "4.2", "validFrom" : "2013-01-01", "title" : "SFO/ Aktivitetsskole"},
+                    {"code" : "4.3", "validFrom" : "2013-01-01", "title" : "Fritidsaktiviteter"},
+                    {"code" : "4.4", "validFrom" : "2013-01-01", "title" : "Økonomisk hjelp for øvrig (gjelder økonomisk
+                    hjelp som ikke inngår i 4.1, 4.2 og 4.3)"},
+                    {"code" : "4.5", "validFrom" : "2013-01-01", "title" : "Besøkshjem/ avlastningstiltak"},
+                    {"code" : "4.6", "validFrom" : "2013-01-01", "title" : "Støttekontakt"},
+                    {"code" : "4.7", "validFrom" : "2013-01-01", "title" : "Samtalegrupper/ barnegrupper
+                    (gjelderstrukturerte samtale- og aktivitetstilbud for aldersbestemte grupper)."},
+                    {"code" : "4.8", "validFrom" : "2013-01-01", "title" : "Utdanning og arbeid (gjelder oppfølging og
+                    støtte for å styrke barn og ungdoms tilknytning til skole eller arbeid)"},
+                    {"code" : "4.9", "validFrom" : "2013-01-01", "title" : "ART"},
+                    {"code" : "4.99", "validFrom" : "2013-01-01", "title" : "Andre tiltak (krever presisering)"},
+                    {"code" : "5.1", "validFrom" : "2013-01-01", "title" : "Frivillig tilsyn i hjemmet (gjelder der
+                    foreldre har samtykket til tilsyn)"},
+                    {"code" : "5.2", "validFrom" : "2013-01-01", "title" : "Pålagt tilsyn i hjemmet (gjelder der tilsyn
+                    skjer etter vedtak i fylkesnemnd)"},
+                    {"code" : "5.3", "validFrom" : "2013-01-01", "title" : "Tilsyn under samvær"},
+                    {"code" : "5.4", "validFrom" : "2013-01-01", "title" : "Ruskontroll"},
+                    {"code" : "5.99", "validFrom" : "2013-01-01", "title" : "Andre tiltak (krever presisering)"},
+                    {"code" : "6.1", "validFrom" : "2013-01-01", "title" : "Familieråd"},
+                    {"code" : "6.2", "validFrom" : "2013-01-01", "title" : "Nettverksmøter (Strukturerte dialogmøter som
+                    består av barneverntjenesten, foreldre og ungdom og andre personer som er viktige i ungdommens liv.
+                    Invitasjon av deltakere skjer i samråd mellom barneverntjenesten, ungdom og foreldre)"},
+                    {"code" : "6.3", "validFrom" : "2013-01-01", "title" : "Individuell plan"},
+                    {"code" : "6.4", "validFrom" : "2013-01-01", "title" : "Deltakelse i ansvarsgruppe"},
+                    {"code" : "6.99", "validFrom" : "2013-01-01", "title" : "Andre tiltak (krever presisering)"},
+                    {"code" : "7.1", "validFrom" : "2013-01-01", "title" : "BVL2021 § 3-7 (tidligere BVL1992 § 4-10)
+                    medisinsk undersøkelse og behandling"},
+                    {"code" : "7.2", "validFrom" : "2013-01-01", "title" : "BVL2021 § 3-8 (tidligere BVL1992 § 4-11)
+                    behandling av barn med særlige opplæringsbehov"},
+                    {"code" : "7.3", "validFrom" : "2013-01-01", "title" : "Psykisk helsehjelp for barn og unge (Gjelder
+                    ikke ved henvisninger, men når barn får behandling av psykolog eller innen psykisk helsevern/BUP)"},
+                    {"code" : "7.99", "validFrom" : "2013-01-01", "title" : "Andre tiltak (krever presisering)"},
+                    {"code" : "8.1", "validFrom" : "2013-01-01", "title" : "Økonomisk hjelp til egen bolig/hybel"},
+                    {"code" : "8.2", "validFrom" : "2013-01-01", "title" : "Bolig med oppfølging (inkluderer også
+                    bofellesskap)"},
+                    {"code" : "8.3", "validFrom" : "2013-01-01", "title" : "Botreningskurs"},
+                    {"code" : "8.99", "validFrom" : "2013-01-01", "title" : "Andre tiltak (krever presisering)"}
+                    ]
+                    }
+                </xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="3"/>
+			<xs:maxLength value="5"/>
+			<xs:enumeration value="1.1"/>
+			<xs:enumeration value="1.2"/>
+			<xs:enumeration value="1.99"/>
+			<xs:enumeration value="2.1"/>
+			<xs:enumeration value="2.2"/>
+			<xs:enumeration value="2.3"/>
+			<xs:enumeration value="2.4"/>
+			<xs:enumeration value="2.5"/>
+			<xs:enumeration value="2.6"/>
+			<xs:enumeration value="2.99"/>
+			<xs:enumeration value="3.1"/>
+			<xs:enumeration value="3.2"/>
+			<xs:enumeration value="3.3"/>
+			<xs:enumeration value="3.4"/>
+			<xs:enumeration value="3.5"/>
+			<xs:enumeration value="3.6"/>
+			<xs:enumeration value="3.7"/>
+			<xs:enumeration value="3.8"/>
+			<xs:enumeration value="3.9"/>
+			<xs:enumeration value="3.10"/>
+			<xs:enumeration value="3.99"/>
+			<xs:enumeration value="4.1"/>
+			<xs:enumeration value="4.2"/>
+			<xs:enumeration value="4.3"/>
+			<xs:enumeration value="4.4"/>
+			<xs:enumeration value="4.5"/>
+			<xs:enumeration value="4.6"/>
+			<xs:enumeration value="4.7"/>
+			<xs:enumeration value="4.8"/>
+			<xs:enumeration value="4.9"/>
+			<xs:enumeration value="4.99"/>
+			<xs:enumeration value="5.1"/>
+			<xs:enumeration value="5.2"/>
+			<xs:enumeration value="5.3"/>
+			<xs:enumeration value="5.4"/>
+			<xs:enumeration value="5.99"/>
+			<xs:enumeration value="6.1"/>
+			<xs:enumeration value="6.2"/>
+			<xs:enumeration value="6.3"/>
+			<xs:enumeration value="6.4"/>
+			<xs:enumeration value="6.99"/>
+			<xs:enumeration value="7.1"/>
+			<xs:enumeration value="7.2"/>
+			<xs:enumeration value="7.3"/>
+			<xs:enumeration value="7.99"/>
+			<xs:enumeration value="8.1"/>
+			<xs:enumeration value="8.2"/>
+			<xs:enumeration value="8.3"/>
+			<xs:enumeration value="8.99"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:simpleType name="VersjonType">
 		<xs:annotation>
 			<xs:documentation>
@@ -299,16 +644,6 @@ Område i kunnskapsmodellen
 			<xs:enumeration value="5"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:complexType name="BufetatTjenesteTyper">
-		<xs:annotation>
-			<xs:documentation>
-		Tjenestetyper 2.linje barnevern levert av Bufetat
-		</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="Tjeneste" type="BufetatTjenesteType" minOccurs="0" maxOccurs="unbounded"/>
-		</xs:sequence>
-	</xs:complexType>
 	<xs:complexType name="OrganisasjonType">
 		<xs:sequence>
 			<xs:element name="Organisasjonsnummer">
