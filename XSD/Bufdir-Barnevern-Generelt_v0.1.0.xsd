@@ -15,10 +15,10 @@ Bjorge.Saether@bufdir.no
 	<xs:simpleType name="PostadresseType">
 		<xs:restriction base="xs:string"/>
 	</xs:simpleType>
-	<xs:simpleType name="GUIDType">
+	<xs:simpleType name="UUIDType">
 		<xs:annotation>
 			<xs:documentation>
-			GUID i format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+			UUID i format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
 		</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">

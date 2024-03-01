@@ -24,13 +24,26 @@ version="0.1.0">
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:simpleType name="MeldingTypeType">
+		<xs:annotation>
+			<xs:documentation>
+				1 = Ny melding
+				2 = Oppdatering til tidligere melding
+				3 = Trukket melding
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1" />
+			<xs:enumeration value="2" />
+			<xs:enumeration value="3" />
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:complexType name="MeldingHeaderType">
 		<xs:sequence>
-			<xs:element name="Id" type="bv:GUIDType"/>
+			<xs:element name="Id" type="bv:UUIDType"/>
+			<xs:element name="Type" type="MeldingTypeType" />
 			<xs:element name="Avsender" type="bv:OrganisasjonType"/>
 			<xs:element name="Fagsystem" type="FagsystemType"/>
-			<xs:element name="Kontaktperson" type="bv:KontaktpersonType"/>
-			<xs:element name="KontaktpersonLeder" type="bv:KontaktpersonType"/>
 		</xs:sequence>
 	</xs:complexType>
 </xs:schema>

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2023 rel. 2 (x64) (http://www.altova.com) by Barne-, Ungdoms- og Familiedirektor (Barne-, Ungdoms- og Familiedirektor) -->
 <!-- Henvisning fra kommunal barneverntjeneste til Bufetat -->
 <!-- Maintainer:
 bjorge.saether@bufdir.no
@@ -48,6 +49,38 @@ bjorge.saether@bufdir.no
 			<xs:enumeration value="7.1"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="FosterhjemBistandTypeType">
+		<xs:annotation>
+			<xs:documentation>
+                    2.2 = Fosterhjem utenfor familie og nære nettverk
+                    2.3 = Statlige familiehjem (gjelder fosterhjem som staten har ansvar for)
+                    2.4 = Fosterhjem etter BVL2021 § 6-3 (tidligere BVL1992 § 4-27)
+                    2.5 = Beredskapshjem utenom familie og nære nettverk
+                </xs:documentation>
+			<xs:appinfo>
+				<subsetOf>"BufetatBistandTypeType"</subsetOf>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="BufetatBistandTypeType">
+			<xs:enumeration value="2.2"/>
+			<xs:enumeration value="2.3"/>
+			<xs:enumeration value="2.4"/>
+			<xs:enumeration value="2.5"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="InstitusjonBistandTypeType">
+		<xs:annotation>
+			<xs:documentation>
+                    1.1 = Barnvernsinstitusjoner (gjelder alle typer barnevernsinstitusjoner)
+                </xs:documentation>
+			<xs:appinfo>
+				<subsetOf>"BufetatBistandTypeType"</subsetOf>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="BufetatBistandTypeType">
+			<xs:enumeration value="1.1"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:simpleType name="ViderePlanType">
 		<xs:annotation>
 			<xs:documentation>
@@ -68,10 +101,8 @@ bjorge.saether@bufdir.no
 			<xs:enumeration value="9"/>
 		</xs:restriction>
 	</xs:simpleType>
-
 	<xs:complexType name="BufetatBistandType">
 		<xs:sequence>
-			<xs:element name="Type" type="BufetatBistandTypeType"/>
 			<xs:element name="DatoFra" type="xs:date"/>
 			<xs:element name="DatoTil" type="xs:date"/>
 			<xs:element name="Utdyping" type="xs:string" minOccurs="0"/>
@@ -134,14 +165,15 @@ bjorge.saether@bufdir.no
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="HenvisningType">
+	<xs:complexType name="FellesHenvisningType">
 		<xs:sequence>
-			<xs:element name="MeldingHeader" type="mld:MeldingHeaderType"/>
 			<xs:element name="OnsketBistand" type="BufetatBistandType"/>
+			<xs:element name="Kontaktperson" type="bv:KontaktpersonType"/>
+			<xs:element name="KontaktpersonLeder" type="bv:KontaktpersonType"/>
 			<xs:element name="BarnInformasjon" type="BarnInformasjonHenvisningType"/>
 			<xs:element name="Omsorgspersoner" type="bv:NettverkType"/>
-			<xs:element name="Dagtilbud" type="bv:DagtilbudType"/>
 			<xs:element name="Vedtak" type="bv:VedtakType"/>
+			<xs:element name="Dagtilbud" type="bv:DagtilbudType"/>
 			<xs:element name="IndividuellPlan" type="bv:IndividuellPlanType"/>
 			<xs:element name="Medvirkning" type="bv:MedvirkningType"/>
 			<xs:element name="BarnetsSituasjon" type="bv:BarnetsSituasjonType">
@@ -162,8 +194,27 @@ bjorge.saether@bufdir.no
 					<xs:documentation>Kommunens foreløpige plan etter avslutning av tiltak</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FosterhjemHenvisningType">
+		<xs:sequence>
+			<xs:element name="OnsketBistandType" type="FosterhjemBistandTypeType"/>
+			<xs:element name="FellesInfo" type="FellesHenvisningType"/>
 			<xs:element name="FosterhjemRammer" type="FosterhjemRammerType"/>
 		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="InstitusjonHenvisningType">
+		<xs:sequence>
+			<xs:element name="OnsketBistandType" type="InstitusjonBistandTypeType"/>
+			<xs:element name="FellesInfo" type="FellesHenvisningType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="HenvisningType">
+		<xs:choice>
+			<xs:element name="MeldingHeader" type="mld:MeldingHeaderType"/>
+			<xs:element name="FosterhjemHenvisning" type="FosterhjemHenvisningType"/>
+			<xs:element name="InstitusjonHenvisning" type="InstitusjonHenvisningType"/>
+		</xs:choice>
 	</xs:complexType>
 	<xs:element name="Henvisning" type="HenvisningType"/>
 </xs:schema>
