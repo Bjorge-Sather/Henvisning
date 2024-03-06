@@ -12,16 +12,19 @@
 
   <ItemGroup>
     <None Update="Defs\Bufdir-Barnevern-Generelt_v0.1.0.xsd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Defs\Bufdir-Barnevern-Henvisning-2.linje_v0.1.0.xsd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Defs\Bufdir-Barnevern-Melding_v0.1.0.xsd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Defs\Bufdir-Barnevernregister_v2.2.3.xsd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Defs\Bufdir-kodelister_0.1.0.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

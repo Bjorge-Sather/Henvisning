@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using System.Xml;
 using System.Xml.Schema;
+using System.Xml.Serialization;
 
 namespace DemoApp.Models
 {
@@ -10,6 +11,8 @@ namespace DemoApp.Models
         private const string DEFS_PATH = @"\Defs";
 
         public static List<XmlSchema> XsdSchemasWithRootElement { get; set; } = [];
+
+        public static Kodelister kodelister { get; set; } = null;
 
         private static string GetRootDirectory()
         {
@@ -34,7 +37,30 @@ namespace DemoApp.Models
                     XsdSchemasWithRootElement.Add(schema);
                 }
             }
+            LoadKodelister();
 
+        }
+
+        public static void LoadKodelister()
+        {
+            string defsPath = $"{GetRootDirectory()}{DEFS_PATH}";
+            var serializer = new XmlSerializer(typeof(Kodelister));
+            using (var reader = new StreamReader($"{defsPath}\\Bufdir-kodelister_0.1.0.xml"))
+            {
+                kodelister = (Kodelister)serializer.Deserialize(reader);
+            }
+        }
+
+        public static Kodeliste GetKodeliste(XmlSchemaAnnotated prop)
+        {
+            var simpleType = GetSimpleType(prop);
+            return GetKodeliste(simpleType.Name);
+        }
+
+        public static Kodeliste GetKodeliste(string navn)
+        {
+            var result = kodelister.kodelister.FirstOrDefault(k => k.navn == navn);
+            return result;
         }
 
         public static List<XmlSchemaAnnotated> GetXsdElements(XmlSchemaAnnotated? prop, bool flat = false)

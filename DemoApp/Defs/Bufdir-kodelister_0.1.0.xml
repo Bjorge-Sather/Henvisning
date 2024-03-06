@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kodelister versjon="0.1.0">
+<kodeliste navn="KjonnFregType">
+	<kode verdi="0" tekst="Ufødt"/>
+	<kode verdi="1" tekst="Mann / Gutt"/>
+	<kode verdi="2" tekst="Kvinne / Jente"/>
+</kodeliste>
+
+<kodeliste navn="KjonnsIdentitetType">
+	<kode verdi="1" tekst="Gutt"/>
+	<kode verdi="2" tekst="Jente"/>
+	<kode verdi="9" tekst="Annet"/>
+</kodeliste>
+
+<kodeliste navn="NettverkRelasjonType">
+	<kode verdi="1" tekst="Mor"/>
+	<kode verdi="2" tekst="Far"/>
+	<kode verdi="9" tekst="Annet"/>
+</kodeliste>
+
+<kodeliste navn="KontaktFrekvensType">
+	<kode verdi="1" tekst="Regelmessig"/>
+	<kode verdi="2" tekst="Sporadisk"/>
+	<kode verdi="3" tekst="Ingen"/>
+</kodeliste>
+
+<kodeliste navn="OmsorgType">
+	<kode verdi="1" tekst="Foreldreansvar"/>
+	<kode verdi="2" tekst="Daglig omsorg"/>
+	<kode verdi="3" tekst="Ingen"/>
+</kodeliste>
+
+<kodeliste navn="IndividuellPlanStatusType">
+	<kode verdi="1" tekst="Foreligger"/>
+	<kode verdi="2" tekst="Under arbeid"/>
+	<kode verdi="3" tekst="Vurderes"/>
+	<kode verdi="4" tekst="Ikke aktuell"/>
+</kodeliste>
+
+<kodeliste navn="KunnskapsmodellOmradeType">
+	<kode verdi="1" tekst="Helse"/>
+	<kode verdi="2" tekst="Barnehage og skole"/>
+	<kode verdi="3" tekst="Følelser og uttrykk"/>
+	<kode verdi="4" tekst="Venner og fritid"/>
+	<kode verdi="5" tekst="Grunnleggende omsorg"/>
+	<kode verdi="6" tekst="Følelsesmessig tilgjengelighet"/>
+	<kode verdi="7" tekst="Stimulering og veiledning"/>
+	<kode verdi="8" tekst="Beskyttelse"/>
+	<kode verdi="9" tekst="Familieforhold"/>
+	<kode verdi="10" tekst="Bolig, økonomi og arbeid"/>
+	<kode verdi="11" tekst="Nettverk og sosial integrering"/>
+</kodeliste>
+
+<kodeliste navn="DagtilbudTypeType">
+	<kode verdi="1" tekst="Ingen"/>
+	<kode verdi="2" tekst="Barnehage"/>
+	<kode verdi="3" tekst="Skole"/>
+	<kode verdi="3" tekst="Arbeid"/>
+</kodeliste>
+
+<kodeliste navn="VedtakStatusType">
+	<kode verdi="1" tekst="Godkjent"/>
+	<kode verdi="2" tekst="Begjæring oversendt nemnd"/>
+	<kode verdi="3" tekst="Utgår / Bortfalt etter BVL"/>
+	<kode verdi="4" tekst="Avslått / Avsluttet"/>
+</kodeliste>
+
+<kodeliste navn="TiltakTypeType">
+	<kode verdi="1.1" tekst="Barnvernsinstitusjoner (gjelder alle typer barnevernsinstitusjoner)"/>
+	<kode verdi="1.2" tekst="Plassering i institusjon etter annen lov"/>
+	<kode verdi="1.99" tekst="Andre tiltak (krever presisering)"/>
+	<kode verdi="2.1" tekst="Fosterhjem i familie og nære nettverk"/>
+	<kode verdi="2.2" tekst="Fosterhjem utenfor familie og nære nettverk"/>
+	<kode verdi="2.3" tekst="Statlige familiehjem (gjelder fosterhjem som staten har ansvar for)"/>
+	<kode verdi="2.4" tekst="Fosterhjem etter BVL2021 § 6-3 (tidligere BVL1992 § 4-27)"/>
+	<kode verdi="2.5" tekst="Beredskapshjem utenom familie og nære nettverk"/>
+	<kode verdi="2.6" tekst="Midlertidig hjem i familie og nære nettverk"/>
+	<kode verdi="2.99" tekst="Andre tiltak (krever presisering)"/>
+	<kode verdi="3.1" tekst="MST"/>
+	<kode verdi="3.2" tekst="PMTO"/>
+	<kode verdi="3.3" tekst="FFT"/>
+	<kode verdi="3.4" tekst="Weber Stratton"/>
+	<kode verdi="3.5" tekst="ICDP"/>
+	<kode verdi="3.6" tekst="Marte Meo"/>
+	<kode verdi="3.7" tekst="Andre hjemmebaserte tiltak (gjelder andre tiltak i hjemmet som følger en spesiell metodikk og som gjenomføres på en systematisk måte) (krever presisering)"/>
+	<kode verdi="3.8" tekst="Sentre for foreldre og barn"/>
+	<kode verdi="3.9" tekst="Vedtak om råd og veiledning"/>
+	<kode verdi="3.10" tekst="Hjemmekonsulent/miljøarbeider"/>
+	<kode verdi="3.99" tekst="Andre tiltak (krever presisering)"/>
+	<kode verdi="4.1" tekst="Barnehage"/>
+	<kode verdi="4.2" tekst="SFO/ Aktivitetsskole"/>
+	<kode verdi="4.3" tekst="Fritidsaktiviteter"/>
+	<kode verdi="4.4" tekst="Økonomisk hjelp for øvrig (gjelder økonomisk hjelp som ikke inngår i 4.1, 4.2 og 4.3)"/>
+	<kode verdi="4.5" tekst="Besøkshjem/ avlastningstiltak"/>
+	<kode verdi="4.6" tekst="Støttekontakt"/>
+	<kode verdi="4.7" tekst="Samtalegrupper/ barnegrupper (gjelder strukturerte samtale- og aktivitetstilbud for aldersbestemte grupper)."/>
+	<kode verdi="4.8" tekst="Utdanning og arbeid (gjelder oppfølging og støtte for å styrke barn og ungdoms tilknytning til skole eller arbeid)"/>
+	<kode verdi="4.9" tekst="ART"/>
+	<kode verdi="4.99" tekst="Andre tiltak (krever presisering)"/>
+	<kode verdi="5.1" tekst="Frivillig tilsyn i hjemmet (gjelder der foreldre har samtykket til tilsyn)"/>
+	<kode verdi="5.2" tekst="Pålagt tilsyn i hjemmet (gjelder der tilsyn skjer etter vedtak i fylkesnemnd)"/>
+	<kode verdi="5.3" tekst="Tilsyn under samvær"/>
+	<kode verdi="5.4" tekst="Ruskontroll"/>
+	<kode verdi="5.99" tekst="Andre tiltak (krever presisering)"/>
+	<kode verdi="6.1" tekst="Familieråd"/>
+	<kode verdi="6.2" tekst="Nettverksmøter (Strukturerte dialogmøter som består av barneverntjenesten, foreldre og ungdom og andre personer som er viktige i ungdommens liv. Invitasjon av deltakere skjer i samråd mellom barneverntjenesten, ungdom og foreldre)"/>
+	<kode verdi="6.3" tekst="Individuell plan"/>
+	<kode verdi="6.4" tekst="Deltakelse i ansvarsgruppe"/>
+	<kode verdi="6.99" tekst="Andre tiltak (krever presisering)"/>
+	<kode verdi="7.1" tekst="BVL2021 § 3-7 (tidligere BVL1992 § 4-10) medisinsk undersøkelse og behandling"/>
+	<kode verdi="7.2" tekst="BVL2021 § 3-8 (tidligere BVL1992 § 4-11) behandling av barn med særlige opplæringsbehov"/>
+	<kode verdi="7.3" tekst="Psykisk helsehjelp for barn og unge (Gjelder ikke ved henvisninger, men når barn får behandling av psykolog eller innen psykisk helsevern/BUP)"/>
+	<kode verdi="7.99" tekst="Andre tiltak (krever presisering)"/>
+	<kode verdi="8.1" tekst="Økonomisk hjelp til egen bolig/hybel"/>
+	<kode verdi="8.2" tekst="Bolig med oppfølging (inkluderer også bofellesskap)"/>
+	<kode verdi="8.3" tekst="Botreningskurs"/>
+	<kode verdi="8.99" tekst="Andre tiltak (krever presisering)"/>
+</kodeliste>
+
+<kodeliste navn="MedvirkningAktorType">
+	<kode verdi="1" tekst="Barnet"/>
+	<kode verdi="2" tekst="Mor"/>
+	<kode verdi="3" tekst="Far"/>
+	<kode verdi="4" tekst="Verge"/>
+	<kode verdi="5" tekst="Tillitsperson"/>
+	<kode verdi="9" tekst="Andre"/>
+</kodeliste>
+
+<kodeliste navn="ViderePlanType">
+	<kode verdi="1" tekst="Ikke nye tiltak"/>
+	<kode verdi="2" tekst="Hjelpetiltak i hjemmet"/>
+	<kode verdi="3" tekst="Fosterhjem"/>
+	<kode verdi="4" tekst="Institusjon"/>
+	<kode verdi="5" tekst="Etableres i egen bolig"/>
+	<kode verdi="9" tekst="Annet"/>
+</kodeliste>
+
+<kodeliste navn="MeldingTypeType">
+	<kode verdi="1" tekst="Ny melding"/>
+	<kode verdi="2" tekst="Oppdatering til tidligere melding"/>
+	<kode verdi="3" tekst="Trukket melding"/>
+</kodeliste>
+</kodelister>
