@@ -1,0 +1,26 @@
+﻿@using DemoApp.Models
+@using DemoApp.Models.ViewModels
+@model PropertyRendererModel
+@{
+    var caption = Model.GetCaption();
+    var elements = DataFactory.GetXsdChildren(Model.Prop);
+    var description = Model.GetDescription();
+    string cssClass = (string.IsNullOrEmpty(description)) ? "anonym_gruppe" : "synlig_gruppe";
+    <div class=@cssClass>
+        @if (description != "")
+        {
+            <span class="ledetekst">@Model.GetCaption()</span>
+            @await Html.PartialAsync($"/Pages/Partial/Beskrivelse.cshtml", description)
+        }
+        @foreach (var element in elements)
+        {
+            <div class="variabel">
+            @{
+                var elementModel = new PropertyRendererModel(element, null);
+                string controlName = DataFactory.GetControlNameForProperty(element);
+            }
+            @await Html.PartialAsync($"/Pages/Partial/{controlName}.cshtml", elementModel)
+            </div>
+        }
+    </div>
+}

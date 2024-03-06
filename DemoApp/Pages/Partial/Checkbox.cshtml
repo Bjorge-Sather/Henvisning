@@ -1,0 +1,4 @@
+﻿@model DemoApp.Models.ViewModels.PropertyRendererModel
+@{
+    <input type="checkbox" id="@Model.GetId()" /><label class="checkbox_tekst" for="@Model.GetId()">@Model.GetCaption()</label>
+}

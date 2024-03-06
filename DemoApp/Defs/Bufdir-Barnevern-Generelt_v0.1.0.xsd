@@ -12,6 +12,19 @@ Bjorge.Saether@bufdir.no
 	<xs:simpleType name="FulltNavnType">
 		<xs:restriction base="xs:string"/>
 	</xs:simpleType>
+
+	<xs:simpleType name="Fritekst">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="5000" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="Enlinje">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="150" />
+		</xs:restriction>
+	</xs:simpleType>
+
 	<xs:simpleType name="PostadresseType">
 		<xs:restriction base="xs:string"/>
 	</xs:simpleType>
@@ -61,7 +74,7 @@ Bjorge.Saether@bufdir.no
 			<xs:element name="Statsborgerskap" type="StatsborgerskapType"/>
 			<xs:element name="Morsml" type="MorsmalType"/>
 			<xs:element name="EtniskTilhorighet" type="EtniskTilhorighetType"/>
-			<xs:element name="BehovForTolk" type="JaNeiType"/>
+			<xs:element name="BehovForTolk" type="xs:boolean"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="KontaktpersonType">
@@ -155,8 +168,8 @@ Bjorge.Saether@bufdir.no
 			<xs:element name="Fodseldato" type="FodselsdatoType" minOccurs="1"/>
 			<xs:element name="KjonnFreg" type="KjonnFregType" minOccurs="1"/>
 			<xs:element name="DUFnummer" type="DUFNummerType"/>
-			<xs:element name="Ufodt" type="JaNeiType"/>
-			<xs:element name="EMA" type="JaNeiType"/>
+			<xs:element name="Ufodt" type="xs:boolean"/>
+			<xs:element name="EMA" type="xs:boolean"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:simpleType name="NettverkRelasjonType">
@@ -208,7 +221,7 @@ Bjorge.Saether@bufdir.no
 		<xs:sequence>
 			<xs:element name="Relasjon" type="NettverkRelasjonType"/>
 			<xs:element name="Personalia" type="KontaktpersonType"/>
-			<xs:element name="BorMedBarnet" type="JaNeiType"/>
+			<xs:element name="BorMedBarnet" type="xs:boolean"/>
 			<xs:element name="Adresse" type="PostadresseType"/>
 			<xs:element name="UtenlandskStatsborger" type="UtenlandskStatsborgerType" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="KontaktFrekvens" type="KontaktFrekvensType">
@@ -278,7 +291,7 @@ Område i kunnskapsmodellen
 			</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Beskrivelse" type="xs:string">
+			<xs:element name="Beskrivelse" type="Fritekst">
 				<xs:annotation>
 					<xs:documentation>
 			Vurdering av barnets situasjon på området
@@ -312,11 +325,11 @@ Område i kunnskapsmodellen
 		<xs:sequence>
 			<xs:element name="Type" type="DagtilbudTypeType">
 			</xs:element>
-			<xs:element name="DagtilbudNavn" type="xs:string">
+			<xs:element name="DagtilbudNavn" type="Enlinje">
 			</xs:element>
-			<xs:element name="DagtilbudAdresse" type="xs:string">
+			<xs:element name="DagtilbudAdresse" type="Enlinje">
 			</xs:element>
-			<xs:element name="Regelemessig" type="JaNeiType">
+			<xs:element name="Regelemessig" type="xs:boolean">
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
@@ -714,7 +727,7 @@ Område i kunnskapsmodellen
 	<xs:simpleType name="MedvirkningAktorType">
 		<xs:annotation>
 			<xs:appinfo>
-				<caption>"Hvem har medvirket i prosessen?"></caption>
+				<ledetekst>"Hvem har medvirket i prosessen?"></ledetekst>
 			</xs:appinfo>
 			<xs:documentation>
 		1 = Barnet
@@ -737,62 +750,62 @@ Område i kunnskapsmodellen
 	<xs:complexType name="MedvirkningType">
 		<xs:annotation>
 			<xs:appinfo>
-				<caption>Medvirkning</caption>
-				<description>Barns rett til medvirkning omfatter både en rett for barnet til å få relevant informasjon tilpasset barnets alder og modenhet, en rett til å uttrykke seg fritt og uhindret, retten til å bli lyttet til og at barnets mening skal tillegges vekt ved beslutninger som berører barnet."</description>
+				<ledetekst>Medvirkning</ledetekst>
+				<veiledning>Barns rett til medvirkning omfatter både en rett for barnet til å få relevant informasjon tilpasset barnets alder og modenhet, en rett til å uttrykke seg fritt og uhindret, retten til å bli lyttet til og at barnets mening skal tillegges vekt ved beslutninger som berører barnet."</veiledning>
 			</xs:appinfo>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="Aktor" type="MedvirkningAktorType" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:appinfo><caption/>"Hvem har medvirket i prosessen?"></xs:appinfo>
+					<xs:appinfo><ledetekst>"Hvem har medvirket i prosessen?"</ledetekst></xs:appinfo>
 					<xs:documentation>Barnet, Mor, Far, Verge, Tillitsperson, Andre</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="InformasjonGittBarnet" type="xs:string">
+			<xs:element name="InformasjonGittBarnet" type="Fritekst" >
 				<xs:annotation>
 					<xs:appinfo>
-						<caption>Hvilken informasjon om fosterhjem og henvisning til fosterhjem er gitt til barnet?
-					Hvordan har barnevernstjenesten sikret at barnet utelukkende har fått og forstått informasjon tilpasset alder og modenhet?"</caption>
+						<ledetekst>Hvilken informasjon om fosterhjem og henvisning til fosterhjem er gitt til barnet?
+					Hvordan har barnevernstjenesten sikret at barnet utelukkende har fått og forstått informasjon tilpasset alder og modenhet?"</ledetekst>
 					</xs:appinfo>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Rammer" type="xs:string">
+			<xs:element name="Rammer" type="Fritekst">
 				<xs:annotation>
 					<xs:appinfo>
-						<caption>Rammer for medvirkning</caption>
-						<description>På hvilken måte er det lagt til rette for trygge rammer for barnets deltakelse?
+						<ledetekst>Rammer for medvirkning</ledetekst>
+						<veiledning>På hvilken måte er det lagt til rette for trygge rammer for barnets deltakelse?
 Hvor, når, med hvem og hvordan har barnet medvirket?
 Har barnet fritt og uhindret fått fylle ut sin egen del av skjemaet?
-						</description>
+						</veiledning>
 					</xs:appinfo>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="VektingAvBarnetsSysnpunkt">
+			<xs:element name="VektingAvBarnetsSysnpunkt" type="Fritekst">
 				<xs:annotation>
 					<xs:appinfo>
-						<caption>Vekting av barnets synspunkt</caption>
-						<description>-	Hvordan er barnets synspunkter, meninger og tanker vektlagt i forhold som vedrører barnet?
+						<ledetekst>Vekting av barnets synspunkt</ledetekst>
+						<veiledning>-	Hvordan er barnets synspunkter, meninger og tanker vektlagt i forhold som vedrører barnet?
 -	Hvilke ønsker har barnet knyttet til medvirkning fremover i tid?
-</description>
+</veiledning>
 					</xs:appinfo>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="ForeldrenesMedvirkning" type="xs:string">
+			<xs:element name="ForeldrenesMedvirkning" type="Fritekst">
 				<xs:annotation>
 					<xs:appinfo>
-						<caption>Foreldrenes medvirkning</caption>
-						<description>-	Hvordan har barnevernstjenesten sikret at foreldrenes rett til medvirkning er ivaretatt i henvisningsprosessen?
+						<ledetekst>Foreldrenes medvirkning</ledetekst>
+						<veiledning>-	Hvordan har barnevernstjenesten sikret at foreldrenes rett til medvirkning er ivaretatt i henvisningsprosessen?
 -	På hvilke måter har foreldrene medvirket i henvisningsprosessen
 -	Hvilke ønsker har foreldrene for fosterhjemmet og barnets opphold der?
 -	Hvordan har foreldrenes synspunkter og ønsker blitt vurdert i henvisningsprosessen?
-</description>
+</veiledning>
 					</xs:appinfo>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="AndreOpplysninger">
+			<xs:element name="AndreOpplysninger" type="Fritekst">
 				<xs:annotation>
 					<xs:appinfo>
-						<caption>Andre relevante opplysninger og informasjon om medvirkningsprosessen</caption>
+						<ledetekst>Andre relevante opplysninger og informasjon om medvirkningsprosessen</ledetekst>
 					</xs:appinfo>
 				</xs:annotation>
 			</xs:element>

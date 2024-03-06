@@ -1,0 +1,10 @@
+﻿@using DemoApp.Models
+@model DemoApp.Models.ViewModels.PropertyRendererModel
+@{
+    var items = DataFactory.GetEnumValues(Model.Prop);
+    @foreach (var kvp in items)
+    {
+        string id = Model.GetId() + "_" + @kvp.Key;
+        <input type="checkbox" value="@kvp.Key" id="@id"><label class="checkbox_tekst" for="@id">@kvp.Value</label>
+    }
+}

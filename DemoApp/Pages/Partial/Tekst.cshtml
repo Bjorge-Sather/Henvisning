@@ -1,0 +1,14 @@
+﻿@model DemoApp.Models.ViewModels.PropertyRendererModel
+@{
+    var minLength = Model.GetMinLength();
+    var maxLength = Model.GetMaxLength();
+    <div class="ledetekst">@Model.GetCaption()</div>
+    @if (maxLength > 150)
+    {
+        <textarea></textarea>   
+    }
+    else
+    {
+        <input type="text" />
+    }
+}

@@ -1,0 +1,75 @@
+﻿@page
+@using DemoApp.Models
+@using DemoApp.Models.ViewModels
+@using System.Xml.Schema
+@using System.Xml
+@model DemoApp.Pages.HenvisningModel
+@{
+    bool isFirst = true;
+    XmlSchemaElement? selectedElement = null;
+    <form method="post">
+    <span class="skjemavelger_tekst">Skjema:</span>
+    <span name="skjemavelger" class="skjemavelger_dropdown">
+            <select name="selectedSchemaName" onchange="this.form.submit()">
+            @foreach (XmlSchema schema in DataFactory.XsdSchemasWithRootElement )
+            {
+                foreach (XmlQualifiedName name in schema.Elements.Names)
+                {
+                        <optgroup label="@name.Name"></optgroup>
+                        var element = schema.Elements[name];
+                        if (element is XmlSchemaElement rotElement)
+                        {
+                            if (rotElement.ElementSchemaType is XmlSchemaComplexType complexType)
+                            {
+                                if (complexType.Particle is XmlSchemaChoice choiceElement)
+                                {
+                                    foreach (XmlSchemaElement particle in choiceElement.Items)
+                                    {
+                                        if (particle.Name != "MeldingHeader")
+                                        {
+                                            bool selected = false;
+                                            if (Model.SelectedElementType == particle.QualifiedName.ToString() || isFirst && Model.SelectedElementType == "")
+                                            {
+                                                selectedElement = particle;
+                                                selected = true;
+                                                isFirst = false;
+                                            }
+                                            if (selected)
+                                            {
+                                                <option value="@particle.QualifiedName" selected>@particle.Name</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@particle.QualifiedName">@particle.Name</option>
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    bool selected = false;
+                                    if (Model.SelectedElementType == rotElement.QualifiedName.ToString() || isFirst && Model.SelectedElementType == "")
+                                    {
+                                        selectedElement = rotElement;
+                                        selected = true;
+                                        isFirst = false;
+                                    }
+                                    if (selected)
+                                    {
+                                        <option value="@rotElement.QualifiedName" selected>@rotElement.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@rotElement.QualifiedName">@rotElement.Name</option>
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            </select>
+            <hr />
+            @await Html.PartialAsync("/Pages/Partial/Gruppe.cshtml", new PropertyRendererModel(selectedElement, null))
+    </span>
+    </form>
+}

@@ -59,6 +59,7 @@ bjorge.saether@bufdir.no
                 </xs:documentation>
 			<xs:appinfo>
 				<subsetOf>"BufetatBistandTypeType"</subsetOf>
+				<ledetekst>Ønsket bistand</ledetekst>
 			</xs:appinfo>
 		</xs:annotation>
 		<xs:restriction base="BufetatBistandTypeType">
@@ -91,6 +92,10 @@ bjorge.saether@bufdir.no
 				5 = Etableres i egen bolig
 				9 = Annet
             </xs:documentation>
+			<xs:appinfo>
+				<ledetekst>Videre plan</ledetekst>
+				<veiledning>Kommunens foreløpige plan etter avslutning av tiltak</veiledning>
+			</xs:appinfo>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="1"/>
@@ -105,7 +110,7 @@ bjorge.saether@bufdir.no
 		<xs:sequence>
 			<xs:element name="DatoFra" type="xs:date"/>
 			<xs:element name="DatoTil" type="xs:date"/>
-			<xs:element name="Utdyping" type="xs:string" minOccurs="0"/>
+			<xs:element name="Utdyping" type="bv:Fritekst" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="FosterhjemRammerType">
@@ -113,52 +118,52 @@ bjorge.saether@bufdir.no
 			<xs:documentation>Rammer for fosterhjemmet</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="GeografiskBeliggenhet" type="xs:string">
+			<xs:element name="GeografiskBeliggenhet" type="bv:Fritekst">
 				<xs:annotation>
 					<xs:documentation>Hensyn til geografisk beliggenhet</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="KanHaDyr" type="bv:JaNeiType">
+			<xs:element name="KanHaDyr" type="xs:boolean">
 				<xs:annotation>
 					<xs:documentation>Kan fosterhjemmet ha dyr?</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="FasteMedisiner" type="xs:string">
+			<xs:element name="FasteMedisiner" type="bv:Fritekst">
 				<xs:annotation>
 					<xs:documentation>Barnets faste medisiner</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Allergier" type="xs:string">
+			<xs:element name="Allergier" type="bv:Fritekst">
 				<xs:annotation>
 					<xs:documentation>Allergier og/eller andre hensyn</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="BegrensningUtreise" type="xs:string">
+			<xs:element name="BegrensningUtreise" type="bv:Fritekst">
 				<xs:annotation>
 					<xs:documentation>Eventuelle begrensninger for barnet til å reise ut av landet</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="SamvaerPersoner" type="xs:string">
+			<xs:element name="SamvaerPersoner" type="bv:Fritekst">
 				<xs:annotation>
 					<xs:documentation>Hvem skal barnet ha samvær/kontakt med, og hvordan. Og skal det tilrettelegges for dette?</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="SamarbeidFamilie" type="xs:string">
+			<xs:element name="SamarbeidFamilie" type="bv:Fritekst">
 				<xs:annotation>
 					<xs:documentation>Hvilke forhold vil være viktig ved samarbeid med barnets foreldre og øvrig familie?</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="ForsterkningstitltakBehov" type="xs:string">
+			<xs:element name="ForsterkningstitltakBehov" type="bv:Fritekst">
 				<xs:annotation>
 					<xs:documentation>Er det behov for forsterkningstiltak som frikjøp fra jobb, særskilt veiledning eller avlastning?</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="SkjermetAdresse" type="xs:string">
+			<xs:element name="SkjermetAdresse" type="bv:Fritekst">
 				<xs:annotation>
 					<xs:documentation>Er det behov for sperret adresse, sikkerhetsplan eller andre sikkerhetstiltak?</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Annet" type="xs:string">
+			<xs:element name="Annet" type="bv:Fritekst">
 				<xs:annotation>
 					<xs:documentation>Annet</xs:documentation>
 				</xs:annotation>
@@ -181,7 +186,7 @@ bjorge.saether@bufdir.no
 					<xs:documentation>Barnets nåsituasjon beskrevet med utgangspunkt i kunnskapsmodellens områder</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="BistandSamletBehov" type="xs:string">
+			<xs:element name="BistandSamletBehov" type="bv:Fritekst">
 				<xs:annotation>
 					<xs:documentation>
 			   Samlet vurdering av barnets behov for bistand.

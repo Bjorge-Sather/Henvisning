@@ -21,3 +21,22 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/* mine */
+
+.anonym_gruppe {
+    background-color: #FFFFD0;
+}
+.synlig_gruppe {
+    background-color: #D0D0D0;
+}
+
+.ledetekst {
+    font-weight: bold;
+    font-size: 1.2em;
+    display: block;
+}
+
+.gruppe_beskrivelse {
+    font-style: italic;
+}

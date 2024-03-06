@@ -1,0 +1,12 @@
+﻿@using DemoApp.Models
+@model DemoApp.Models.ViewModels.PropertyRendererModel
+@{
+    var items = DataFactory.GetEnumValues(Model.Prop);
+    <span class="ledetekst">@Model.GetCaption()</span>
+    <select class="dropdown">
+        @foreach (var kvp in items)
+        {
+            <option value="@kvp.Key">@kvp.Value</option>
+        }
+    </select>
+}

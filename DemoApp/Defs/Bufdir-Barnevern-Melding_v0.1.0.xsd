@@ -7,12 +7,12 @@ version="0.1.0">
 	<xs:import namespace="https://Bufdir.no/Barnevern/Generelt_v0.1.0" schemaLocation="Bufdir-Barnevern-Generelt_v0.1.0.xsd"/>
 	<xs:complexType name="FagsystemType">
 		<xs:sequence>
-			<xs:element name="Leverandor" type="xs:string">
+			<xs:element name="Leverandor" type="bv:Enlinje">
 				<xs:annotation>
 					<xs:appinfo>Leverandørnavn fagsystem. Eksempler: 'Visma', 'Acos' eller 'Netcompany'.</xs:appinfo>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Navn" type="xs:string">
+			<xs:element name="Navn" type="bv:Enlinje">
 				<xs:annotation>
 					<xs:appinfo>Navn fagsystem. Eksempel: 'Familia'.</xs:appinfo>
 				</xs:annotation>
