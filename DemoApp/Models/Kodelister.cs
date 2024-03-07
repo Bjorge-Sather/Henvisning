@@ -7,6 +7,6 @@ namespace DemoApp.Models
     public class Kodelister
     {
         [XmlElement(ElementName = "kodeliste")]
-        public Kodeliste[] kodelister { get; set; }
+        public Kodeliste[]? kodelister { get; set; }
     }
 }

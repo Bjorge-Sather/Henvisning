@@ -32,7 +32,7 @@ bjorge.saether@bufdir.no
                     7.1 = BVL2021 § 3-7 (tidligere BVL1992 § 4-10) medisinsk undersøkelse og behandling
                 </xs:documentation>
 			<xs:appinfo>
-				<subsetOf>"bv:TiltakTypeType"</subsetOf>
+				<subsetOf>bv:TiltakTypeType</subsetOf>
 			</xs:appinfo>
 		</xs:annotation>
 		<xs:restriction base="bv:TiltakTypeType">
@@ -58,7 +58,7 @@ bjorge.saether@bufdir.no
                     2.5 = Beredskapshjem utenom familie og nære nettverk
                 </xs:documentation>
 			<xs:appinfo>
-				<subsetOf>"BufetatBistandTypeType"</subsetOf>
+				<subsetOf>BufetatBistandTypeType</subsetOf>
 				<ledetekst>Ønsket bistand</ledetekst>
 			</xs:appinfo>
 		</xs:annotation>
@@ -75,7 +75,7 @@ bjorge.saether@bufdir.no
                     1.1 = Barnvernsinstitusjoner (gjelder alle typer barnevernsinstitusjoner)
                 </xs:documentation>
 			<xs:appinfo>
-				<subsetOf>"BufetatBistandTypeType"</subsetOf>
+				<subsetOf>BufetatBistandTypeType</subsetOf>
 			</xs:appinfo>
 		</xs:annotation>
 		<xs:restriction base="BufetatBistandTypeType">
@@ -107,101 +107,193 @@ bjorge.saether@bufdir.no
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:complexType name="BufetatBistandType">
+		<xs:annotation>
+			<xs:appinfo>
+				<ledetekst>Ønsket bistand</ledetekst>
+				<veiledning></veiledning>
+			</xs:appinfo>
+		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="DatoFra" type="xs:date"/>
-			<xs:element name="DatoTil" type="xs:date"/>
-			<xs:element name="Utdyping" type="bv:Fritekst" minOccurs="0"/>
+			<xs:element name="DatoFra" type="xs:date">
+				<xs:annotation>
+					<xs:appinfo>
+						<ledetekst>Fra dato</ledetekst>
+						<veiledning></veiledning>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DatoTil" type="xs:date">
+				<xs:annotation>
+					<xs:appinfo>
+						<ledetekst>Til dato</ledetekst>
+						<veiledning></veiledning>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Utdyping" type="bv:Fritekst" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<ledetekst>Utdyping av behov</ledetekst>
+						<veiledning></veiledning>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="FosterhjemRammerType">
 		<xs:annotation>
-			<xs:documentation>Rammer for fosterhjemmet</xs:documentation>
+			<xs:appinfo>
+				<ledetekst>9. Rammer for fosterhjemmet</ledetekst>
+			</xs:appinfo>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="GeografiskBeliggenhet" type="bv:Fritekst">
 				<xs:annotation>
-					<xs:documentation>Hensyn til geografisk beliggenhet</xs:documentation>
+					<xs:appinfo>
+						<ledetekst>Hensyn til geografisk beliggenhet</ledetekst>
+					</xs:appinfo>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="KanHaDyr" type="xs:boolean">
 				<xs:annotation>
-					<xs:documentation>Kan fosterhjemmet ha dyr?</xs:documentation>
+					<xs:appinfo>
+						<ledetekst>Fosterhjemmet kan ha dyr</ledetekst>
+					</xs:appinfo>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="FasteMedisiner" type="bv:Fritekst">
 				<xs:annotation>
-					<xs:documentation>Barnets faste medisiner</xs:documentation>
+					<xs:appinfo>
+						<ledetekst>Barnets faste medisiner</ledetekst>
+					</xs:appinfo>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="Allergier" type="bv:Fritekst">
 				<xs:annotation>
-					<xs:documentation>Allergier og/eller andre hensyn</xs:documentation>
+					<xs:appinfo>
+						<ledetekst>Allergier og/eller andre hensyn</ledetekst>
+					</xs:appinfo>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="BegrensningUtreise" type="bv:Fritekst">
 				<xs:annotation>
-					<xs:documentation>Eventuelle begrensninger for barnet til å reise ut av landet</xs:documentation>
+					<xs:appinfo>
+						<ledetekst>Eventuelle begrensninger for barnet til å reise ut av landet</ledetekst>
+					</xs:appinfo>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="SamvaerPersoner" type="bv:Fritekst">
 				<xs:annotation>
-					<xs:documentation>Hvem skal barnet ha samvær/kontakt med, og hvordan. Og skal det tilrettelegges for dette?</xs:documentation>
+					<xs:appinfo>
+						<ledetekst>Hvem skal barnet ha samvær/kontakt med, og hvordan. Og skal det tilrettelegges for dette?</ledetekst>
+					</xs:appinfo>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="SamarbeidFamilie" type="bv:Fritekst">
 				<xs:annotation>
-					<xs:documentation>Hvilke forhold vil være viktig ved samarbeid med barnets foreldre og øvrig familie?</xs:documentation>
+					<xs:appinfo>
+						<ledetekst>Hvilke forhold vil være viktig ved samarbeid med barnets foreldre og øvrig familie?</ledetekst>
+					</xs:appinfo>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="ForsterkningstitltakBehov" type="bv:Fritekst">
 				<xs:annotation>
-					<xs:documentation>Er det behov for forsterkningstiltak som frikjøp fra jobb, særskilt veiledning eller avlastning?</xs:documentation>
+					<xs:appinfo>
+						<ledetekst>Er det behov for forsterkningstiltak som frikjøp fra jobb, særskilt veiledning eller avlastning?</ledetekst>
+					</xs:appinfo>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="SkjermetAdresse" type="bv:Fritekst">
 				<xs:annotation>
-					<xs:documentation>Er det behov for sperret adresse, sikkerhetsplan eller andre sikkerhetstiltak?</xs:documentation>
+					<xs:appinfo>
+						<ledetekst>Er det behov for sperret adresse, sikkerhetsplan eller andre sikkerhetstiltak?</ledetekst>
+					</xs:appinfo>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="Annet" type="bv:Fritekst">
 				<xs:annotation>
-					<xs:documentation>Annet</xs:documentation>
+					<xs:appinfo>
+						<ledetekst>Annet</ledetekst>
+					</xs:appinfo>
 				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BarnMedNettverkType">
+		<xs:annotation>
+			<xs:appinfo>
+				<ledetekst>3 - Informasjon om barnet og omsorgssituasjon</ledetekst>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="BarnInformasjon" type="BarnInformasjonHenvisningType"/>
+			<xs:element name="Omsorgspersoner" type="bv:NettverkType">
+		<xs:annotation>
+			<xs:appinfo>
+				<ledetekst>3.4 Omsorgssituasjon</ledetekst>
+				<veiledning>Informasjon om foreldre, foresatte, andre og barnets omsorgssituasjon</veiledning>
+			</xs:appinfo>
+		</xs:annotation>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="FellesHenvisningType">
 		<xs:sequence>
 			<xs:element name="OnsketBistand" type="BufetatBistandType"/>
-			<xs:element name="Kontaktperson" type="bv:KontaktpersonType"/>
-			<xs:element name="KontaktpersonLeder" type="bv:KontaktpersonType"/>
-			<xs:element name="BarnInformasjon" type="BarnInformasjonHenvisningType"/>
-			<xs:element name="Omsorgspersoner" type="bv:NettverkType"/>
-			<xs:element name="Vedtak" type="bv:VedtakType"/>
-			<xs:element name="Dagtilbud" type="bv:DagtilbudType"/>
+			<xs:element name="Kontaktperson" type="bv:KontaktpersonType">
+				<xs:annotation>
+					<xs:appinfo>
+						<ledetekst>Kontaktperson</ledetekst>
+						<veiledning/>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="KontaktpersonLeder" type="bv:KontaktpersonType">
+				<xs:annotation>
+					<xs:appinfo>
+						<ledetekst>Kontaktpersons leder</ledetekst>
+						<veiledning/>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BarnMedNettverk" type="BarnMedNettverkType"/>
+			<xs:element name="Vedtak" type="bv:VedtakType"></xs:element>
 			<xs:element name="IndividuellPlan" type="bv:IndividuellPlanType"/>
+			<xs:element name="Dagtilbud" type="bv:DagtilbudType"/>
 			<xs:element name="Medvirkning" type="bv:MedvirkningType"/>
 			<xs:element name="BarnetsSituasjon" type="bv:BarnetsSituasjonType">
 				<xs:annotation>
-					<xs:documentation>Barnets nåsituasjon beskrevet med utgangspunkt i kunnskapsmodellens områder</xs:documentation>
+					<xs:appinfo>
+						<ledetekst>6-8 Barnets nåsituasjon</ledetekst>
+						<veiledning>Barnets nåsituasjon beskrevet med utgangspunkt i kunnskapsmodellens områder</veiledning>
+					</xs:appinfo>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="BistandSamletBehov" type="bv:Fritekst">
 				<xs:annotation>
-					<xs:documentation>
-			   Samlet vurdering av barnets behov for bistand.
-			   Her gjøres den samlede vurderingen av barnets behov for bistand. I dette inngår en totalvurdering av den beskyttelse og risiko som omgir barnet, og av barnets mottagelighet for ønsket tiltak. Dette innebefatter en samlet vurdering av de behov barnet må få tilfredsstilt for å kunne ha god utvikling. Barnets beste skal være et grunnleggende hensyn i dette.
-			</xs:documentation>
+					<xs:appinfo>
+						<ledetekst>10 Samlet vurdering av barnets behov for bistand</ledetekst>
+						<veiledning>Her gjøres den samlede vurderingen av barnets behov for bistand. I dette inngår en totalvurdering av den beskyttelse og risiko som omgir barnet, og av barnets mottagelighet for ønsket tiltak. Dette innebefatter en samlet vurdering av de behov barnet må få tilfredsstilt for å kunne ha god utvikling. Barnets beste skal være et grunnleggende hensyn i dette.</veiledning>
+					</xs:appinfo>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="PlanEtterOnsketTiltak" type="ViderePlanType" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>Kommunens foreløpige plan etter avslutning av tiltak</xs:documentation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<ledetekst>Kommunens videre plan</ledetekst>
+						<veiledning>Kommunens foreløpige plan etter avslutning av tiltak</veiledning>
+					</xs:appinfo>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="FosterhjemHenvisningType">
+		<xs:annotation>
+			<xs:appinfo>
+				<ledetekst>Fosterhjem</ledetekst>
+			</xs:appinfo>
+		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="OnsketBistandType" type="FosterhjemBistandTypeType"/>
 			<xs:element name="FellesInfo" type="FellesHenvisningType"/>
@@ -209,12 +301,22 @@ bjorge.saether@bufdir.no
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="InstitusjonHenvisningType">
+		<xs:annotation>
+			<xs:appinfo>
+				<ledetekst>Institusjon</ledetekst>
+			</xs:appinfo>
+		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="OnsketBistandType" type="InstitusjonBistandTypeType"/>
 			<xs:element name="FellesInfo" type="FellesHenvisningType"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="HenvisningType">
+		<xs:annotation>
+			<xs:appinfo>
+				<ledetekst>Henvisning Bufetat</ledetekst>
+			</xs:appinfo>
+		</xs:annotation>
 		<xs:choice>
 			<xs:element name="MeldingHeader" type="mld:MeldingHeaderType"/>
 			<xs:element name="FosterhjemHenvisning" type="FosterhjemHenvisningType"/>

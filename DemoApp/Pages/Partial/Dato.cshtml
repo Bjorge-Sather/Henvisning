@@ -1,3 +1,6 @@
 ﻿@model DemoApp.Models.ViewModels.PropertyRendererModel
-
-    (dato)
+@{
+    <span class="ledetekst">@Model.GetCaption(true)</span>
+    @await Html.PartialAsync($"/Pages/Partial/Beskrivelse.cshtml", @Model.GetDescription())
+    <input type="text" class="enlinjetekst dato" placeholder="(dd.mm.yyyy)" />
+}

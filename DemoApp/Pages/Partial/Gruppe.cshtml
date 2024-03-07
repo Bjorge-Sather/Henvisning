@@ -2,14 +2,15 @@
 @using DemoApp.Models.ViewModels
 @model PropertyRendererModel
 @{
-    var caption = Model.GetCaption();
+    var caption = Model.GetCaption(false);
     var elements = DataFactory.GetXsdChildren(Model.Prop);
     var description = Model.GetDescription();
-    string cssClass = (string.IsNullOrEmpty(description)) ? "anonym_gruppe" : "synlig_gruppe";
+    bool synligGruppe = !string.IsNullOrEmpty(caption);
+    string cssClass = (synligGruppe) ? "synlig_gruppe" : "anonym_gruppe";
     <div class=@cssClass>
-        @if (description != "")
+        @if (synligGruppe)
         {
-            <span class="ledetekst">@Model.GetCaption()</span>
+            <span class="gruppetekst">@caption</span>
             @await Html.PartialAsync($"/Pages/Partial/Beskrivelse.cshtml", description)
         }
         @foreach (var element in elements)

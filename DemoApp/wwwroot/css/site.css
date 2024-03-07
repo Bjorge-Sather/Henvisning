@@ -25,18 +25,63 @@ body {
 /* mine */
 
 .anonym_gruppe {
-    background-color: #FFFFD0;
+    /*    background-color: #FFFFF0;*/
+    border: 1px solid #FFFFD0;
 }
 .synlig_gruppe {
-    background-color: #D0D0D0;
+    /*background-color: #E0E0E0;*/
+    border: 1px solid gray;
+    margin: 15px 0px 15px 15px;
+    padding: 15px 0px 15px 15px;
 }
 
+.gruppetekst {
+    font-weight: bold;
+    font-size: 1.4em;
+    display: block;
+}
+
+.variabel{
+    margin-bottom: 10px;
+}
 .ledetekst {
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 1em;
+    display: inline-block;
+    min-width: 150px;
+}
+
+.ledetekst_flerlinje {
+    font-weight: bold;
+    font-size: 1em;
+    display: block;
+}
+
+.ledetekst_flervalg {
+    font-weight: bold;
+    font-size: 1em;
     display: block;
 }
 
 .gruppe_beskrivelse {
     font-style: italic;
+}
+
+.checkbox_tekst {
+    font-weight: bold;
+    font-size: 1em;
+    margin-left: 0.3em;
+}
+
+.enlinjetekst {
+    width: 500px;
+}
+
+.dato {
+    width: 100px !important;
+}
+
+.flerlinjetekst {
+    width: 657px;
+    height: 150px;
 }

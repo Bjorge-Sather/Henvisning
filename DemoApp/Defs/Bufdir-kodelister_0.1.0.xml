@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kodelister versjon="0.1.0">
 <kodeliste navn="KjonnFregType">
-	<kode verdi="0" tekst="Ufødt"/>
 	<kode verdi="1" tekst="Mann / Gutt"/>
 	<kode verdi="2" tekst="Kvinne / Jente"/>
 </kodeliste>
@@ -115,6 +114,53 @@
 	<kode verdi="8.2" tekst="Bolig med oppfølging (inkluderer også bofellesskap)"/>
 	<kode verdi="8.3" tekst="Botreningskurs"/>
 	<kode verdi="8.99" tekst="Andre tiltak (krever presisering)"/>
+</kodeliste>
+
+<kodeliste navn="BufetatBistandTypeType" utdragfra="TiltakTypeType">
+	<kode verdi="1.1" />
+	<kode verdi="1.2" />
+	<kode verdi="2.2" />
+	<kode verdi="2.3" />
+	<kode verdi="2.4" />
+	<kode verdi="2.5" />
+	<kode verdi="3.1" />
+	<kode verdi="3.2" />
+	<kode verdi="3.3" />
+	<kode verdi="3.7" />
+	<kode verdi="3.8" />
+	<kode verdi="7.1" />
+</kodeliste>
+
+<kodeliste navn="FosterhjemBistandTypeType" utdragfra="BufetatBistandTypeType">
+	<kode verdi="2.2" />
+	<kode verdi="2.3" />
+	<kode verdi="2.4" />
+	<kode verdi="2.5" />
+</kodeliste>
+
+<kodeliste navn="InstitusjonBistandTypeType" utdragfra="BufetatBistandTypeType">
+	<kode verdi="1.1" />
+	<kode verdi="1.2" />
+</kodeliste>
+
+<kodeliste navn="LovType">
+	<kode verdi="1" tekst="BVL"/>
+	<kode verdi="2" tekst="BVL2021"/>
+</kodeliste>
+
+<kodeliste navn="StatsborgerskapType">
+	<kode verdi="1" tekst="Norsk"/>
+	<kode verdi="9" tekst="Annet"/>
+</kodeliste>
+
+<kodeliste navn="MorsmalType">
+	<kode verdi="1" tekst="Norsk"/>
+	<kode verdi="9" tekst="Annet"/>
+</kodeliste>
+
+<kodeliste navn="EtniskTilhorighetType">
+	<kode verdi="1" tekst="Norsk"/>
+	<kode verdi="9" tekst="Annet"/>
 </kodeliste>
 
 <kodeliste navn="MedvirkningAktorType">

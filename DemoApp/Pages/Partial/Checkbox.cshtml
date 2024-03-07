@@ -1,4 +1,5 @@
 ﻿@model DemoApp.Models.ViewModels.PropertyRendererModel
 @{
-    <input type="checkbox" id="@Model.GetId()" /><label class="checkbox_tekst" for="@Model.GetId()">@Model.GetCaption()</label>
+    <input type="checkbox" id="@Model.GetId()" /><label class="checkbox_tekst" for="@Model.GetId()">@Model.GetCaption(true)</label>
+    @await Html.PartialAsync($"/Pages/Partial/Beskrivelse.cshtml", @Model.GetDescription())
 }

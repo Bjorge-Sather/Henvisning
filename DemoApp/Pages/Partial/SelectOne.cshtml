@@ -1,11 +1,12 @@
 ﻿@using DemoApp.Models
 @model DemoApp.Models.ViewModels.PropertyRendererModel
 @{
-    //var items = DataFactory.GetEnumValues(Model.Prop);
     var kodeliste = DataFactory.GetKodeliste(Model.Prop); 
-    <span class="ledetekst">@Model.GetCaption()</span>
+    <span class="ledetekst">@Model.GetCaption(true)</span>
+    @await Html.PartialAsync($"/Pages/Partial/Beskrivelse.cshtml", @Model.GetDescription())
     <select class="dropdown">
-        @foreach (var kode in kodeliste.koder)
+        <option disabled selected value=""> -- Velg -- </option>
+        @foreach (var kode in kodeliste.koder!)
         {
             <option value="@kode.verdi">@kode.tekst</option>
         }

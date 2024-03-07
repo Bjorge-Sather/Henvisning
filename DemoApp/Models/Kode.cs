@@ -6,8 +6,8 @@ namespace DemoApp.Models
     public class Kode
     {
         [XmlAttribute]
-        public string verdi { get; set; }
+        public string? verdi { get; set; }
         [XmlAttribute]
-        public string tekst { get; set; }
+        public string? tekst { get; set; }
     }
 }

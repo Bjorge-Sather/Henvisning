@@ -1,10 +1,12 @@
 ﻿@using DemoApp.Models
 @model DemoApp.Models.ViewModels.PropertyRendererModel
 @{
-    var items = DataFactory.GetEnumValues(Model.Prop);
-    @foreach (var kvp in items)
+    <span class="ledetekst_flervalg">@Model.GetCaption(true)</span>
+    @await Html.PartialAsync($"/Pages/Partial/Beskrivelse.cshtml", @Model.GetDescription())
+    var kodeliste = DataFactory.GetKodeliste(Model.Prop);
+    @foreach (var kode in kodeliste!.koder!)
     {
-        string id = Model.GetId() + "_" + @kvp.Key;
-        <input type="checkbox" value="@kvp.Key" id="@id"><label class="checkbox_tekst" for="@id">@kvp.Value</label>
+        string id = Model.GetId() + "_" + kode.verdi;
+        <input type="checkbox" value="@kode.verdi" id="@id"><label class="checkbox_tekst" for="@id">@kode.tekst</label><br />
     }
 }
