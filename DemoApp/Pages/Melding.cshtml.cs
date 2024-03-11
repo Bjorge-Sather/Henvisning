@@ -1,9 +1,10 @@
 using DemoApp.Models;
+using DemoApp.Models.Fagsystem;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace DemoApp.Pages
 {
-    public class HenvisningModel : PageModel
+    public class MeldingModel : PageModel
     {
         public void OnGet()
         {
@@ -19,6 +20,7 @@ namespace DemoApp.Pages
         {
             Utils.GetRequestParams(Request, out Dictionary<string, string> queryParams);
             SelectedElementType = Utils.GetRequestValue(queryParams, "selectedSchemaName");
+            var barn = TestdataGenerator.GetTestdata();
         }
 
         public string MeldingId { get; set; } = "";

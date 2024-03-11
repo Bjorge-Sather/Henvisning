@@ -1,4 +1,4 @@
-﻿namespace DemoApp.Models
+﻿namespace DemoApp.Models.Fagsystem
 {
 
     public enum AdresseGradering
@@ -12,11 +12,11 @@
     {
         public int Id { get; set; }
         public AdresseGradering Graderingsnivaa { get; set; } = AdresseGradering.ugradert;
-        public string Fodselsnummer { get; set; }
-        public string Fornavn { get; set; }
-        public string Etternavn { get; set; }
+        public string? Fodselsnummer { get; set; }
+        public string? Fornavn { get; set; }
+        public string? Etternavn { get; set; }
 
-        public string Kjonn { get; set; }
+        public string? Kjonn { get; set; }
         public DateTime Fodselsdato { get; set; }
 
 

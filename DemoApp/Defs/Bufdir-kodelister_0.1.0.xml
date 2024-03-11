@@ -29,6 +29,12 @@
 	<kode verdi="3" tekst="Ingen"/>
 </kodeliste>
 
+<kodeliste navn="VedtakBakgrunnType">
+	<kode verdi="1" tekst="Forhold ved omsorgen i hjemmet "/>
+	<kode verdi="2" tekst="Alvorlige atferdsvansker"/>
+	<kode verdi="3" tekst="Vedvarende rusmisbruk"/>
+</kodeliste>
+
 <kodeliste navn="IndividuellPlanStatusType">
 	<kode verdi="1" tekst="Foreligger"/>
 	<kode verdi="2" tekst="Under arbeid"/>

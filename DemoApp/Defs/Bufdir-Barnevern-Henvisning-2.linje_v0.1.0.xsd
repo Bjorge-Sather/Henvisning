@@ -12,7 +12,6 @@ bjorge.saether@bufdir.no
 		<xs:sequence>
 			<xs:element name="Barn" type="bv:BarnType"/>
 			<xs:element name="UtenlandskBakgrunn" type="bv:UtenlandskStatsborgerType" minOccurs="0"/>
-			<xs:element name="KjonnsIdentitet" type="bv:KjonnsIdentitetType" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:simpleType name="BufetatBistandTypeType">
@@ -109,7 +108,7 @@ bjorge.saether@bufdir.no
 	<xs:complexType name="BufetatBistandType">
 		<xs:annotation>
 			<xs:appinfo>
-				<ledetekst>Ønsket bistand</ledetekst>
+				<ledetekst></ledetekst>
 				<veiledning></veiledning>
 			</xs:appinfo>
 		</xs:annotation>

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace DemoApp.Models
+namespace DemoApp.Models.Fagsystem
 {
 
     public enum BarnType
@@ -18,7 +18,7 @@ namespace DemoApp.Models
         public FREG_Person? FREG_Person { get; set; }
         public BarnType Type { get; set; } = BarnType.Standard;
 
-        public List<FREG_Person> Nettverk { get; set; } = [];
+        public List<NettverkPerson>? Nettverk { get; set; }
 
     }
 }

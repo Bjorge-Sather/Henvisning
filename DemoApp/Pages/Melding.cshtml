@@ -3,14 +3,14 @@
 @using DemoApp.Models.ViewModels
 @using System.Xml.Schema
 @using System.Xml
-@model DemoApp.Pages.HenvisningModel
+@model DemoApp.Pages.MeldingModel
 @{
-    bool isFirst = true;
     XmlSchemaElement? selectedElement = null;
     <form method="post">
     <span class="skjemavelger_tekst">Skjema:</span>
     <span name="skjemavelger" class="skjemavelger_dropdown">
             <select name="selectedSchemaName" onchange="this.form.submit()">
+            <option value="">- velg skjema / melding -</option>
             @foreach (XmlSchema schema in DataFactory.XsdSchemasWithRootElement )
             {
                 foreach (XmlQualifiedName name in schema.Elements.Names)
@@ -28,19 +28,19 @@
                                         if (particle.Name != "MeldingHeader")
                                         {
                                             bool selected = false;
-                                            if (Model.SelectedElementType == particle.QualifiedName.ToString() || isFirst && Model.SelectedElementType == "")
+                                            if (Model.SelectedElementType == particle.QualifiedName.ToString())
                                             {
                                                 selectedElement = particle;
                                                 selected = true;
-                                                isFirst = false;
                                             }
+                                            string? caption = DataFactory.GetCaption(particle, true);
                                             if (selected)
                                             {
-                                                <option value="@particle.QualifiedName" selected>@particle.Name</option>
+                                                <option value="@particle.QualifiedName" selected>@caption</option>
                                             }
                                             else
                                             {
-                                                <option value="@particle.QualifiedName">@particle.Name</option>
+                                                <option value="@particle.QualifiedName">@caption</option>
                                             }
                                         }
                                     }
@@ -48,19 +48,19 @@
                                 else
                                 {
                                     bool selected = false;
-                                    if (Model.SelectedElementType == rotElement.QualifiedName.ToString() || isFirst && Model.SelectedElementType == "")
+                                    if (Model.SelectedElementType == rotElement.QualifiedName.ToString())
                                     {
                                         selectedElement = rotElement;
                                         selected = true;
-                                        isFirst = false;
                                     }
+                                    string? caption = DataFactory.GetCaption(rotElement, true);
                                     if (selected)
                                     {
-                                        <option value="@rotElement.QualifiedName" selected>@rotElement.Name</option>
+                                        <option value="@rotElement.QualifiedName" selected>@caption</option>
                                     }
                                     else
                                     {
-                                        <option value="@rotElement.QualifiedName">@rotElement.Name</option>
+                                        <option value="@rotElement.QualifiedName">@caption</option>
                                     }
                                 }
                             }
@@ -69,7 +69,11 @@
                 }
             </select>
             <hr />
-            @await Html.PartialAsync("/Pages/Partial/Gruppe.cshtml", new PropertyRendererModel(selectedElement, null))
+            @if (selectedElement != null)
+            {
+                @await Html.PartialAsync("/Pages/Partial/Gruppe.cshtml", new PropertyRendererModel("", selectedElement, null))
+                <input type="submit" value="Send/Lagre" />
+            }
     </span>
     </form>
 }

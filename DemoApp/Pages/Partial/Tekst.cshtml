@@ -9,11 +9,11 @@
     @if (flerlinje)
     {
         @await Html.PartialAsync($"/Pages/Partial/Beskrivelse.cshtml", @Model.GetDescription())
-        <textarea class="flerlinjetekst"></textarea>
+        <textarea class="flerlinjetekst" name="@Model.GetId()" id="@Model.GetId()"></textarea>
     }
     else
     {
-        <input type="text" class="enlinjetekst" />
+        <input type="text" class="enlinjetekst" name="@Model.GetId()" id="@Model.GetId()" />
         @await Html.PartialAsync($"/Pages/Partial/Beskrivelse.cshtml", @Model.GetDescription())
     }
 }

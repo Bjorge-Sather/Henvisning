@@ -1,4 +1,4 @@
-﻿namespace DemoApp.Models
+﻿namespace DemoApp.Models.Fagsystem
 {
     public class Melding
     {

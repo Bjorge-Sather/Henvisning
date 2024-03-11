@@ -7,7 +7,7 @@
     var description = Model.GetDescription();
     bool synligGruppe = !string.IsNullOrEmpty(caption);
     string cssClass = (synligGruppe) ? "synlig_gruppe" : "anonym_gruppe";
-    <div class=@cssClass>
+    <div class="@cssClass" id="@Model.GetId()" >
         @if (synligGruppe)
         {
             <span class="gruppetekst">@caption</span>
@@ -17,7 +17,7 @@
         {
             <div class="variabel">
             @{
-                var elementModel = new PropertyRendererModel(element, null);
+                var elementModel = new PropertyRendererModel($"{Model.XPath}", element, null);
                 string controlName = DataFactory.GetControlNameForProperty(element);
             }
             @await Html.PartialAsync($"/Pages/Partial/{controlName}.cshtml", elementModel)

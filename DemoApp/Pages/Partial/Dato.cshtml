@@ -2,5 +2,5 @@
 @{
     <span class="ledetekst">@Model.GetCaption(true)</span>
     @await Html.PartialAsync($"/Pages/Partial/Beskrivelse.cshtml", @Model.GetDescription())
-    <input type="text" class="enlinjetekst dato" placeholder="(dd.mm.yyyy)" />
+    <input id="@Model.GetId()" name="@Model.GetId()" type="date" class="dato" min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")" max="@DateTime.Now.AddDays(3650).ToString("yyyy-MM-dd")" />
 }

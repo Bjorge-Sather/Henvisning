@@ -1,25 +1,18 @@
 ﻿using System.Xml.Schema;
 namespace DemoApp.Models.ViewModels
 {
-    public class PropertyRendererModel(XmlSchemaAnnotated prop, object? value)
+    public class PropertyRendererModel(string xPath, XmlSchemaAnnotated prop, object? value)
     {
+        public string XPath { get; } = $"{xPath}/{DataFactory.GetName(prop)}";
         public XmlSchemaAnnotated Prop { get; } = prop;
         public object? Value { get; } = value;
 
         public string? GetCaption(bool fallbackToName)
         {
-            if (Prop == null) return
-                    "<Prop=null>";
-            var result = DataFactory.GetAppInfoValue(Prop, "ledetekst");
-            if (result == "" && fallbackToName)
-            {
-                if (Prop is XmlSchemaElement element)
-                    return element.Name;
-                else if (Prop is XmlSchemaAttribute attribute)
-                    return attribute.Name;
-            }
-            return result;
+            return DataFactory.GetCaption(Prop, fallbackToName);
         }
+
+        public DateTime Start { get; set; } = DateTime.Now.Date;
 
         public string GetDescription()
         {
@@ -30,10 +23,8 @@ namespace DemoApp.Models.ViewModels
 
         public string GetId()
         {
-            if (Prop is XmlSchemaElement element)
-                return element.QualifiedName.Name;
-            if (Prop is XmlSchemaAttribute attribute)
-                return attribute.QualifiedName.Name;
+            if (Prop is XmlSchemaElement || Prop is XmlSchemaAttribute)
+                return $"{XPath}";
             return "---";
         }
 

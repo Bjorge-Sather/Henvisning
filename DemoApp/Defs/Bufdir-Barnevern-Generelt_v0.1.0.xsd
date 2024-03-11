@@ -106,6 +106,10 @@ Bjorge.Saether@bufdir.no
                 fødselsdato (DDMMÅÅ) + 55555,
                 fødselsdato (DDMMÅÅ) + 99999
             </xs:documentation>
+            <xs:appinfo>
+				<ledetekst>Fødsesnummer</ledetekst>
+				<veiledning>Fødselsnummer eller D-nummer</veiledning>
+            </xs:appinfo>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:minLength value="11"/>
@@ -472,13 +476,36 @@ Bjorge.Saether@bufdir.no
 			<xs:enumeration value="4"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="VedtakBakgrunnType">
+		<xs:annotation>
+			<xs:documentation>
+			1 = Forhold ved omsorgen i hjemmet 
+			2 = Alvorlige atferdsvansker
+			3 = Vedvarende rusmisbruk
+			</xs:documentation>
+		</xs:annotation>		
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1" />
+			<xs:enumeration value="2" />
+			<xs:enumeration value="3" />
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:complexType name="VedtakType">
 		<xs:annotation>
 					<xs:appinfo>
-						<ledetekst>4.1 Vedtak</ledetekst>
+						<ledetekst>Bakgrunn for vedtak</ledetekst>
 					</xs:appinfo>
 		</xs:annotation>
 		<xs:sequence>
+			
+			<xs:element name="Bakgrunn" type="VedtakBakgrunnType">
+				<xs:annotation>
+					<xs:appinfo>
+						<ledetekst>Bakgrunn for vedtak</ledetekst>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			
 			<xs:element name="Lovhjemmel" type="LovhjemmelType">
 				<xs:annotation>
 					<xs:appinfo>
@@ -824,7 +851,7 @@ Bjorge.Saether@bufdir.no
 		<xs:sequence>
 			<xs:element name="Aktor" type="MedvirkningAktorType" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:appinfo><ledetekst>"Hvem har medvirket i prosessen?"</ledetekst></xs:appinfo>
+					<xs:appinfo><ledetekst>Hvem har medvirket i prosessen?</ledetekst></xs:appinfo>
 					<xs:documentation>Barnet, Mor, Far, Verge, Tillitsperson, Andre</xs:documentation>
 				</xs:annotation>
 			</xs:element>

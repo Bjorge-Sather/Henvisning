@@ -293,9 +293,9 @@ namespace DemoApp.Models
         }
 
 
-        public static string GetAppInfoValue(XmlSchemaAnnotated xsdType, string appInfoElement, bool recurse = true)
+        public static string GetAppInfoValue(XmlSchemaAnnotated? xsdType, string appInfoElement, bool recurse = true)
         {
-            if (xsdType.Annotation != null)
+            if (xsdType?.Annotation != null)
             {
                 foreach (var item in xsdType.Annotation.Items)
                 {
@@ -309,7 +309,7 @@ namespace DemoApp.Models
             {
                 if (xsdType is XmlSchemaElement element)
                 {
-                    return GetAppInfoValue(element.ElementSchemaType, appInfoElement, false);
+                    return GetAppInfoValue(element!.ElementSchemaType, appInfoElement, false);
                 }
                 else if (xsdType is XmlSchemaAttribute attribute)
                 {
@@ -318,5 +318,27 @@ namespace DemoApp.Models
             }
             return "";
         }
+
+        public static string? GetCaption(XmlSchemaAnnotated prop, bool fallbackToName)
+        {
+            if (prop == null) return
+                    "<Prop=null>";
+            var result = DataFactory.GetAppInfoValue(prop, "ledetekst");
+            if (result == "" && fallbackToName)
+            {
+                return GetName(prop);
+            }
+            return result;
+        }
+
+        public static string? GetName(XmlSchemaAnnotated prop)
+        {
+            if (prop is XmlSchemaElement element)
+                return element.Name;
+            else if (prop is XmlSchemaAttribute attribute)
+                return attribute.Name;
+            return "";
+        }
+
     }
 }
