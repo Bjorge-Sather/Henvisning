@@ -155,5 +155,18 @@ namespace DemoApp.Models.Fagsystem
             initBarn(barn, freg);
             return barn;
         }
+
+        public static Barneverntjeneste GetBarneverntjeneste()
+        {
+            return new Barneverntjeneste()
+            {
+                Navn = "Barneverntjenesten i Asker",
+                Organisasjonsnummer = "974 635 453",
+                Kommunenummer = "3203",
+                KommuneNavn = "Asker",
+                Bydelsnavn = "",
+                Bydelsnummer = ""
+            };
+        }
     }
 }

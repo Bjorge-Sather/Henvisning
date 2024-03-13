@@ -3,7 +3,7 @@
 @model PropertyRendererModel
 @{
     var caption = Model.GetCaption(false);
-    var elements = DataFactory.GetXsdChildren(Model.Prop);
+    var elements = XsdUtils.GetXsdChildren(Model.Prop);
     var description = Model.GetDescription();
     bool synligGruppe = !string.IsNullOrEmpty(caption);
     string cssClass = (synligGruppe) ? "synlig_gruppe" : "anonym_gruppe";
@@ -18,7 +18,7 @@
             <div class="variabel">
             @{
                 var elementModel = new PropertyRendererModel($"{Model.XPath}", element, null);
-                string controlName = DataFactory.GetControlNameForProperty(element);
+                string controlName = XsdUtils.GetControlNameForProperty(element);
             }
             @await Html.PartialAsync($"/Pages/Partial/{controlName}.cshtml", elementModel)
             </div>

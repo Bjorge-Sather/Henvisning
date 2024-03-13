@@ -5,13 +5,13 @@
 @using System.Xml
 @model DemoApp.Pages.MeldingModel
 @{
+ 
     XmlSchemaElement? selectedElement = null;
-    <form method="post">
-    <span class="skjemavelger_tekst">Skjema:</span>
-    <span name="skjemavelger" class="skjemavelger_dropdown">
+        <span class="skjemavelger_tekst">Skjema:</span>
+        <div name="skjemavelger" class="skjemavelger_dropdown">
             <select name="selectedSchemaName" onchange="this.form.submit()">
             <option value="">- velg skjema / melding -</option>
-            @foreach (XmlSchema schema in DataFactory.XsdSchemasWithRootElement )
+            @foreach (XmlSchema schema in XsdUtils.XsdSchemasWithRootElement )
             {
                 foreach (XmlQualifiedName name in schema.Elements.Names)
                 {
@@ -33,7 +33,7 @@
                                                 selectedElement = particle;
                                                 selected = true;
                                             }
-                                            string? caption = DataFactory.GetCaption(particle, true);
+                                            string? caption = XsdUtils.GetCaption(particle, true);
                                             if (selected)
                                             {
                                                 <option value="@particle.QualifiedName" selected>@caption</option>
@@ -53,7 +53,7 @@
                                         selectedElement = rotElement;
                                         selected = true;
                                     }
-                                    string? caption = DataFactory.GetCaption(rotElement, true);
+                                    string? caption = XsdUtils.GetCaption(rotElement, true);
                                     if (selected)
                                     {
                                         <option value="@rotElement.QualifiedName" selected>@caption</option>
@@ -67,6 +67,7 @@
                         }
                     }
                 }
+            }
             </select>
             <hr />
             @if (selectedElement != null)
@@ -74,6 +75,7 @@
                 @await Html.PartialAsync("/Pages/Partial/Gruppe.cshtml", new PropertyRendererModel("", selectedElement, null))
                 <input type="submit" value="Send/Lagre" />
             }
-    </span>
-    </form>
+
+    </div>
 }
+    

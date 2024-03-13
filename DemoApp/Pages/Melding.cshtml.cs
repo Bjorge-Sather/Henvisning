@@ -21,6 +21,7 @@ namespace DemoApp.Pages
             Utils.GetRequestParams(Request, out Dictionary<string, string> queryParams);
             SelectedElementType = Utils.GetRequestValue(queryParams, "selectedSchemaName");
             var barn = TestdataGenerator.GetTestdata();
+            ViewData["Title"] = (SelectedElementType) ?? "Melding";
         }
 
         public string MeldingId { get; set; } = "";

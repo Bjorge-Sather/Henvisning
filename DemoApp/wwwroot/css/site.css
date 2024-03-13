@@ -63,6 +63,11 @@ body {
     display: block;
 }
 
+
+.tekst_verdi {
+    display: inline-block;
+}
+
 .gruppe_beskrivelse {
     font-style: italic;
 }
@@ -84,4 +89,16 @@ body {
 .flerlinjetekst {
     width: 657px;
     height: 150px;
+}
+
+.barn_selector_tittel {
+    margin-right: 10px;
+}
+
+.disabled_button {
+    color: silver !important;
+}
+.disabled_button:hover {
+    cursor: default !important;
+    background-color: white !important;
 }

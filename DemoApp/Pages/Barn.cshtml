@@ -2,22 +2,4 @@
 @using DemoApp.Models.Fagsystem
 @model DemoApp.Pages.BarnModel
 @{
-    <form method="post">
-    <h3>Velg barn</h3>
-    <select name="barn_id">
-        <option value=""></option>
-        @foreach (Barn barn in Model.BarnListe)
-        {
-            if (Model.selectedBarn == barn)
-            {
-                <option value="@barn.Id" selected>@barn.FREG_Person.Fornavn @barn.FREG_Person.Etternavn (@barn.FREG_Person.Fodselsnummer)</option>
-            }
-            else
-            {
-                <option value="@barn.Id">@barn.FREG_Person.Fornavn @barn.FREG_Person.Etternavn (@barn.FREG_Person.Fodselsnummer)</option>
-            }
-        }
-
-    </select>
-    </form>
 }

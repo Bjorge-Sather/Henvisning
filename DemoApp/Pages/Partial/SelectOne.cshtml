@@ -1,7 +1,7 @@
 ﻿@using DemoApp.Models
 @model DemoApp.Models.ViewModels.PropertyRendererModel
 @{
-    var kodeliste = DataFactory.GetKodeliste(Model.Prop); 
+    var kodeliste = XsdUtils.GetKodeliste(Model.Prop); 
     <span class="ledetekst">@Model.GetCaption(true)</span>
     @await Html.PartialAsync($"/Pages/Partial/Beskrivelse.cshtml", @Model.GetDescription())
     <select class="dropdown" name="@Model.GetId()" id="@Model.GetId()">

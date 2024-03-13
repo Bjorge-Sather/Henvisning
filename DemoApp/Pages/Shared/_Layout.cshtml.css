@@ -17,10 +17,17 @@ a {
   border-color: #1861ac;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+.nav-link {
   color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+  padding: 0px 10px 0px 10px;
+  margin-left: 10px;
+  background-color: white;
+  border: none;
+}
+
+.nav-link:hover {
+    background-color: silver;
+    cursor: pointer;
 }
 
 .border-top {

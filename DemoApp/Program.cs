@@ -15,7 +15,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-DataFactory.LoadXsds();
+XsdUtils.LoadXsds();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

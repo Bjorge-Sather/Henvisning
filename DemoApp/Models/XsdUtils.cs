@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 
 namespace DemoApp.Models
 {
-    public static class DataFactory
+    public static class XsdUtils
     {
         private const string DATA_PATH = @"\App_Data";
         private const string DEFS_PATH = @"\Defs";
@@ -323,7 +323,7 @@ namespace DemoApp.Models
         {
             if (prop == null) return
                     "<Prop=null>";
-            var result = DataFactory.GetAppInfoValue(prop, "ledetekst");
+            var result = XsdUtils.GetAppInfoValue(prop, "ledetekst");
             if (result == "" && fallbackToName)
             {
                 return GetName(prop);
@@ -338,6 +338,21 @@ namespace DemoApp.Models
             else if (prop is XmlSchemaAttribute attribute)
                 return attribute.Name;
             return "";
+        }
+
+        public static List<XmlSchemaAnnotated> FindByXPath(XmlSchemaAnnotated startingPoint, string xpath)
+        {
+            List<XmlSchemaAnnotated> result = [];
+            var children = GetXsdChildren(startingPoint);
+            foreach (XmlSchemaAnnotated child in children)
+            {
+                if (string.Compare(GetName(child), xpath, true) == 0)
+                    result.Add(child);
+                var grandchildren = FindByXPath(child, xpath);
+                if (grandchildren.Count > 0)
+                    result.AddRange(grandchildren);
+            }
+            return result;
         }
 
     }

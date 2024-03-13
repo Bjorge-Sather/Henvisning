@@ -3,13 +3,13 @@ namespace DemoApp.Models.ViewModels
 {
     public class PropertyRendererModel(string xPath, XmlSchemaAnnotated prop, object? value)
     {
-        public string XPath { get; } = $"{xPath}/{DataFactory.GetName(prop)}";
+        public string XPath { get; } = $"{xPath}/{XsdUtils.GetName(prop)}";
         public XmlSchemaAnnotated Prop { get; } = prop;
         public object? Value { get; } = value;
 
         public string? GetCaption(bool fallbackToName)
         {
-            return DataFactory.GetCaption(Prop, fallbackToName);
+            return XsdUtils.GetCaption(Prop, fallbackToName);
         }
 
         public DateTime Start { get; set; } = DateTime.Now.Date;
@@ -18,7 +18,7 @@ namespace DemoApp.Models.ViewModels
         {
             if (Prop == null) return
                     "<Prop=null>";
-            return DataFactory.GetAppInfoValue(Prop, "veiledning");
+            return XsdUtils.GetAppInfoValue(Prop, "veiledning");
         }
 
         public string GetId()
@@ -30,11 +30,11 @@ namespace DemoApp.Models.ViewModels
 
         public int GetMinLength()
         {
-            return DataFactory.GetMinLength(Prop);
+            return XsdUtils.GetMinLength(Prop);
         }
         public int GetMaxLength()
         {
-            return DataFactory.GetMaxLength(Prop);
+            return XsdUtils.GetMaxLength(Prop);
         }
 
     }

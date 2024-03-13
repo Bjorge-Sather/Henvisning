@@ -3,7 +3,7 @@
 @{
     <span class="ledetekst_flervalg">@Model.GetCaption(true)</span>
     @await Html.PartialAsync($"/Pages/Partial/Beskrivelse.cshtml", @Model.GetDescription())
-    var kodeliste = DataFactory.GetKodeliste(Model.Prop);
+    var kodeliste = XsdUtils.GetKodeliste(Model.Prop);
     @foreach (var kode in kodeliste!.koder!)
     {
         string id = Model.GetId() + "_" + kode.verdi;
