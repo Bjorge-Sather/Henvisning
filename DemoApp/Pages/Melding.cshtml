@@ -1,5 +1,6 @@
 ﻿@page
 @using DemoApp.Models
+@using DemoApp.Models.Fagsystem
 @using DemoApp.Models.ViewModels
 @using System.Xml.Schema
 @using System.Xml
@@ -72,7 +73,8 @@
             <hr />
             @if (selectedElement != null)
             {
-                @await Html.PartialAsync("/Pages/Partial/Gruppe.cshtml", new PropertyRendererModel("", selectedElement, null))
+                var values = Model.PrefillValues;
+                @await Html.PartialAsync("/Pages/Partial/Gruppe.cshtml", new PropertyRendererModel("", selectedElement, values))
                 <input type="submit" value="Send/Lagre" />
             }
 

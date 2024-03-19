@@ -1,4 +1,4 @@
-﻿
+﻿using DemoApp.Pages.Partial;
 
 namespace DemoApp.Models.Fagsystem
 {
@@ -24,7 +24,7 @@ namespace DemoApp.Models.Fagsystem
                     Fodselsdato = new DateTime(2012, 12, 12),
                     Fodselsnummer = "12121241555",
                     Graderingsnivaa = AdresseGradering.ugradert,
-                    Kjonn = "mann"
+                    Kjonn = "1"
                 },
                 new()
                 {
@@ -34,7 +34,7 @@ namespace DemoApp.Models.Fagsystem
                     Fodselsdato = new DateTime(2010, 10, 10),
                     Fodselsnummer = "10101041444",
                     Graderingsnivaa = AdresseGradering.ugradert,
-                    Kjonn = "kvinne"
+                    Kjonn = "2"
                 },
                 new()
                 {
@@ -44,7 +44,7 @@ namespace DemoApp.Models.Fagsystem
                     Fodselsdato = new DateTime(1990, 10, 10),
                     Fodselsnummer = "10109051455",
                     Graderingsnivaa = AdresseGradering.ugradert,
-                    Kjonn = "kvinne"
+                    Kjonn = "2"
                 },
                 new()
                 {
@@ -54,7 +54,7 @@ namespace DemoApp.Models.Fagsystem
                     Fodselsdato = new DateTime(1990, 12, 12),
                     Fodselsnummer = "12129051555",
                     Graderingsnivaa = AdresseGradering.ugradert,
-                    Kjonn = "mann"
+                    Kjonn = "1"
                 },
                 new()
                 {
@@ -64,7 +64,7 @@ namespace DemoApp.Models.Fagsystem
                     Fodselsdato = new DateTime(1949, 02, 02),
                     Fodselsnummer = "02024953555",
                     Graderingsnivaa = AdresseGradering.ugradert,
-                    Kjonn = "mann"
+                    Kjonn = "1"
                 }
                 ];
             return personer;
@@ -167,6 +167,34 @@ namespace DemoApp.Models.Fagsystem
                 Bydelsnavn = "",
                 Bydelsnummer = ""
             };
+        }
+
+        public static List<PrefilledValue> GetPrefillValues(HttpRequest request)
+        {
+            List<PrefilledValue> result = [];
+            var bvTjeneste = GetBarneverntjeneste();
+            result.Add(new("MeldingHeader/Avsender/Organisasjonsnummer", bvTjeneste.Organisasjonsnummer, false));
+            result.Add(new("MeldingHeader/Avsender/Kommunenummer", bvTjeneste.Kommunenummer, false));
+            result.Add(new("MeldingHeader/Avsender/Kommunenavn", bvTjeneste.KommuneNavn, false));
+            result.Add(new("MeldingHeader/Avsender/Bydelsnummer", bvTjeneste.Bydelsnummer, false));
+            result.Add(new("MeldingHeader/Avsender/Bydelsnavn", bvTjeneste.Bydelsnavn, false));
+
+            BarnSelectorModel model = new(request);
+            var barn = model.selectedBarn;
+
+            result.Add(new("FellesInfo/BarnMedNettverk/BarnInformasjon/Barn/Fodselsnummer", barn.FREG_Person.Fodselsnummer, false));
+            result.Add(new("FellesInfo/BarnMedNettverk/BarnInformasjon/Barn/Fodseldato", barn.FREG_Person.Fodselsdato.ToString("yyyy-MM-dd"), false));
+            result.Add(new("FellesInfo/BarnMedNettverk/BarnInformasjon/Barn/KjonnFreg", barn.FREG_Person.Kjonn, false));
+            result.Add(new("FellesInfo/BarnMedNettverk/BarnInformasjon/Barn/EMA", false.ToString(), false));
+            result.Add(new("FellesInfo/BarnMedNettverk/BarnInformasjon/Barn/Ufodt", false.ToString(), false));
+            result.Add(new("FellesInfo/BarnMedNettverk/BarnInformasjon/Barn/DUFnummer", "", false));
+            return result;
+        }
+
+        public static PrefilledValue? GetPrefilledValueFor(List<PrefilledValue> values, string id)
+        {
+            var hit = values.FirstOrDefault(p => id.EndsWith(p.Xpath));
+            return hit;
         }
     }
 }

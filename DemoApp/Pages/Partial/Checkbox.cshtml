@@ -1,5 +1,33 @@
-﻿@model DemoApp.Models.ViewModels.PropertyRendererModel
+﻿@using DemoApp.Models.Fagsystem
+@model DemoApp.Models.ViewModels.PropertyRendererModel
 @{
-    <input type="checkbox" id="@Model.GetId()" /><label class="checkbox_tekst" for="@Model.GetId()">@Model.GetCaption(true)</label>
+    var prefilled = TestdataGenerator.GetPrefilledValueFor(Model.Values, Model.GetId());
+    bool disable = (prefilled?.OpenForEdit == false);
+    string disableCssClass = (disable) ? "disabled_button" : "";
+    bool check = prefilled?.Value == true.ToString();
+    string checkedStr = (check) ? "checked" : "";
+    if (disable)
+    {
+        if (check)
+        {
+            <input type="checkbox" id="@Model.GetId()" disabled checked />
+        }
+        else
+        {
+            <input type="checkbox" id="@Model.GetId()" disabled />
+        }
+    }
+    else
+    {
+        if (check)
+        {
+            <input type="checkbox" id="@Model.GetId()" checked />
+        }
+        else
+        {
+            <input type="checkbox" id="@Model.GetId()" />
+        }
+    }
+    <label class="checkbox_tekst @disableCssClass" for="@Model.GetId()">@Model.GetCaption(true)</label>
     @await Html.PartialAsync($"/Pages/Partial/Beskrivelse.cshtml", @Model.GetDescription())
 }

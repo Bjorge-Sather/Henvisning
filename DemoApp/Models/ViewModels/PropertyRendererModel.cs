@@ -1,11 +1,12 @@
-﻿using System.Xml.Schema;
+﻿using DemoApp.Models.Fagsystem;
+using System.Xml.Schema;
 namespace DemoApp.Models.ViewModels
 {
-    public class PropertyRendererModel(string xPath, XmlSchemaAnnotated prop, object? value)
+    public class PropertyRendererModel(string xPath, XmlSchemaAnnotated prop, List<PrefilledValue> values)
     {
         public string XPath { get; } = $"{xPath}/{XsdUtils.GetName(prop)}";
         public XmlSchemaAnnotated Prop { get; } = prop;
-        public object? Value { get; } = value;
+        public List<PrefilledValue> Values { get; } = values;
 
         public string? GetCaption(bool fallbackToName)
         {

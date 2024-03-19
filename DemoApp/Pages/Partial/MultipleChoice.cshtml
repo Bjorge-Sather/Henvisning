@@ -1,6 +1,12 @@
 ﻿@using DemoApp.Models
+@using DemoApp.Models.Fagsystem
 @model DemoApp.Models.ViewModels.PropertyRendererModel
 @{
+    var prefilled = TestdataGenerator.GetPrefilledValueFor(Model.Values, Model.GetId());
+    bool disable = (prefilled?.OpenForEdit == false);
+    bool check = prefilled?.Value == true.ToString();
+    string checkedStr = (check) ? "checked" : "";
+
     <span class="ledetekst_flervalg">@Model.GetCaption(true)</span>
     @await Html.PartialAsync($"/Pages/Partial/Beskrivelse.cshtml", @Model.GetDescription())
     var kodeliste = XsdUtils.GetKodeliste(Model.Prop);

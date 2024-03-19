@@ -1,6 +1,19 @@
-﻿@model DemoApp.Models.ViewModels.PropertyRendererModel
+﻿@using DemoApp.Models.Fagsystem
+@model DemoApp.Models.ViewModels.PropertyRendererModel
 @{
-    <span class="ledetekst">@Model.GetCaption(true)</span>
+    var prefilled = TestdataGenerator.GetPrefilledValueFor(Model.Values, Model.GetId());
+    string value = (prefilled?.Value) ?? "";
+    bool disable = (prefilled?.OpenForEdit == false);
+    string disableCssClass = (disable) ? "disabled_button" : "";
+    string disableStr = (disable) ? "disabled" : "";
+    <span class="ledetekst @disableCssClass">@Model.GetCaption(true)</span>
     @await Html.PartialAsync($"/Pages/Partial/Beskrivelse.cshtml", @Model.GetDescription())
-    <input id="@Model.GetId()" name="@Model.GetId()" type="date" class="dato" min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")" max="@DateTime.Now.AddDays(3650).ToString("yyyy-MM-dd")" />
+    if (disable)
+    {
+        <input id="@Model.GetId()" disabled name="@Model.GetId()" type="date" class="dato" min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")" max="@DateTime.Now.AddDays(3650).ToString("yyyy-MM-dd")" value="@value" />
+    }
+    else
+    {
+        <input id="@Model.GetId()" name="@Model.GetId()" type="date" class="dato" min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")" max="@DateTime.Now.AddDays(3650).ToString("yyyy-MM-dd")" value="@value" />
+    }
 }

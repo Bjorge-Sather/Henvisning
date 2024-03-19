@@ -17,7 +17,7 @@
         {
             <div class="variabel">
             @{
-                var elementModel = new PropertyRendererModel($"{Model.XPath}", element, null);
+                var elementModel = new PropertyRendererModel($"{Model.XPath}", element, Model.Values);
                 string controlName = XsdUtils.GetControlNameForProperty(element);
             }
             @await Html.PartialAsync($"/Pages/Partial/{controlName}.cshtml", elementModel)

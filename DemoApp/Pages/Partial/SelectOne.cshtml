@@ -1,14 +1,40 @@
 ﻿@using DemoApp.Models
+@using DemoApp.Models.Fagsystem
 @model DemoApp.Models.ViewModels.PropertyRendererModel
 @{
     var kodeliste = XsdUtils.GetKodeliste(Model.Prop); 
-    <span class="ledetekst">@Model.GetCaption(true)</span>
+    var prefilled = TestdataGenerator.GetPrefilledValueFor(Model.Values, Model.GetId());
+    string value = (prefilled?.Value) ?? "";
+    bool disable = (prefilled?.OpenForEdit == false);
+    string disableCssClass = (disable) ? "disabled_button" : "";
+    string disableStr = (disable) ? "disabled" : "";
+    <span class="ledetekst @disableCssClass">@Model.GetCaption(true)</span>
     @await Html.PartialAsync($"/Pages/Partial/Beskrivelse.cshtml", @Model.GetDescription())
-    <select class="dropdown" name="@Model.GetId()" id="@Model.GetId()">
-        <option disabled selected value=""> -- Velg -- </option>
-        @foreach (var kode in kodeliste.koder!)
-        {
-            <option value="@kode.verdi">@kode.tekst</option>
-        }
-    </select>
+    if (disable)
+    {
+        <select class="dropdown" name="@Model.GetId()" id="@Model.GetId()" disabled>
+            <option disabled selected value=""> -- Velg -- </option>
+            @foreach (var kode in kodeliste.koder!)
+            {
+                if (kode.verdi == value)
+                {
+                    <option value="@kode.verdi" selected>@kode.tekst</option>
+                }
+                else
+                {
+                    <option value="@kode.verdi">@kode.tekst</option>
+                }
+            }
+        </select>
+    }
+    else
+    {
+        <select class="dropdown" name="@Model.GetId()" id="@Model.GetId()">
+            <option disabled selected value=""> -- Velg -- </option>
+            @foreach (var kode in kodeliste.koder!)
+            {
+                <option value="@kode.verdi">@kode.tekst</option>
+            }
+        </select>
+    }
 }
