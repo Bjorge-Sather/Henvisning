@@ -242,7 +242,14 @@ Bjorge.Saether@bufdir.no
 		<xs:sequence>
 			<xs:element name="Relasjon" type="NettverkRelasjonType"/>
 			<xs:element name="Personalia" type="KontaktpersonType"/>
-			<xs:element name="BorMedBarnet" type="xs:boolean"/>
+			<xs:element name="BorMedBarnet" type="xs:boolean">
+				<xs:annotation>
+				<xs:appinfo>
+					<ledetekst>Bor med barnet</ledetekst>
+					<veiledning></veiledning>
+            </xs:appinfo>
+		</xs:annotation>
+			</xs:element>
 			<xs:element name="Adresse" type="PostadresseType"/>
 			<xs:element name="UtenlandskStatsborger" type="UtenlandskStatsborgerType" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="KontaktFrekvens" type="KontaktFrekvensType">
