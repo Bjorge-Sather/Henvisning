@@ -5,7 +5,7 @@
     var kodeliste = XsdUtils.GetKodeliste(Model.Prop); 
     var prefilled = TestdataGenerator.GetPrefilledValueFor(Model.Values, Model.GetId());
     string value = (prefilled?.Value) ?? "";
-    bool disable = (prefilled?.OpenForEdit == false);
+    bool disable = (prefilled?.OpenToEdit == false);
     string disableCssClass = (disable) ? "disabled_button" : "";
     string disableStr = (disable) ? "disabled" : "";
     <span class="ledetekst @disableCssClass">@Model.GetCaption(true)</span>

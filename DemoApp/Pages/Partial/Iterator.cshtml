@@ -1,0 +1,36 @@
+﻿@using DemoApp.Models
+@using DemoApp.Models.ViewModels
+@model PropertyIteratorRendererModel
+@{
+    var caption = Model.GetCaption(false);
+    var elements = XsdUtils.GetXsdChildren(Model.Prop);
+    var description = Model.GetDescription();
+    bool synligGruppe = !string.IsNullOrEmpty(caption);
+    string cssClass = (synligGruppe) ? "synlig_gruppe" : "anonym_gruppe";
+    var enumType = Model.GetIterateTypeDefinition();
+    string enumTypeName = XsdUtils.GetName(enumType);
+    var kodeliste = XsdUtils.GetKodeliste(enumTypeName);
+    @foreach (var kode in kodeliste!.koder!)
+        {
+            string id = Model.GetId() + "_" + kode.verdi;
+            <div>
+                <input type="checkbox" value="@kode.verdi" id="@id">
+
+                <label class="checkbox_tekst" for="@id">@kode.tekst</label>
+                <br />
+            @foreach (var element in elements)
+            {
+
+                <div class="variabel">
+                    @{
+                        var elementModel = new PropertyRendererModel($"{Model.XPath}", element, Model.Values, enumType);
+                        string controlName = XsdUtils.GetControlNameForProperty(element);
+                    }
+                    @await Html.PartialAsync($"/Pages/Partial/{controlName}.cshtml", elementModel)
+                </div>
+            }
+        </div>
+        }
+    }
+
+}

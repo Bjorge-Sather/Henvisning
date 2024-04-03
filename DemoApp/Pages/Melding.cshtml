@@ -6,7 +6,7 @@
 @using System.Xml
 @model DemoApp.Pages.MeldingModel
 @{
- 
+    XmlSchemaElement? header = null;
     XmlSchemaElement? selectedElement = null;
         <span class="skjemavelger_tekst">Skjema:</span>
         <div name="skjemavelger" class="skjemavelger_dropdown">
@@ -16,17 +16,21 @@
             {
                 foreach (XmlQualifiedName name in schema.Elements.Names)
                 {
-                        <optgroup label="@name.Name"></optgroup>
-                        var element = schema.Elements[name];
-                        if (element is XmlSchemaElement rotElement)
+                    <optgroup label="@name.Name"></optgroup>
+                    var element = schema.Elements[name];
+                    if (element is XmlSchemaElement rotElement)
+                    {
+                        if (rotElement.ElementSchemaType is XmlSchemaComplexType complexType)
                         {
-                            if (rotElement.ElementSchemaType is XmlSchemaComplexType complexType)
+                            if (complexType.Particle is XmlSchemaChoice choiceElement)
                             {
-                                if (complexType.Particle is XmlSchemaChoice choiceElement)
+                                foreach (XmlSchemaElement particle in choiceElement.Items)
                                 {
-                                    foreach (XmlSchemaElement particle in choiceElement.Items)
+                                    if (particle.Name == "MeldingHeader")
                                     {
-                                        if (particle.Name != "MeldingHeader")
+                                        header = particle;
+                                    }
+                                    else
                                         {
                                             bool selected = false;
                                             if (Model.SelectedElementType == particle.QualifiedName.ToString())
@@ -71,9 +75,10 @@
             }
             </select>
             <hr />
-            @if (selectedElement != null)
+            @if (selectedElement != null && header != null)
             {
                 var values = Model.PrefillValues;
+                @await Html.PartialAsync("/Pages/Partial/Gruppe.cshtml", new PropertyRendererModel("", header, values))
                 @await Html.PartialAsync("/Pages/Partial/Gruppe.cshtml", new PropertyRendererModel("", selectedElement, values))
                 <input type="submit" value="Send/Lagre" />
             }

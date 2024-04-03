@@ -1,5 +1,9 @@
-﻿@using DemoApp.Models.Fagsystem
-@model DemoApp.Models.ViewModels.PropertyRendererModel
+﻿@* 
+    Brukes for å rendre enum-verdi som checkbox, hvor enum-caption blir checkbox-caption istf. navn eller caption fra AppInfo
+*@
+@using DemoApp.Models.Fagsystem
+@using DemoApp.Models.ViewModels
+@model PropertyRendererModel
 @{
     var prefilled = TestdataGenerator.GetPrefilledValueFor(Model.Values, Model.GetId());
     bool disable = (prefilled?.OpenToEdit == false);

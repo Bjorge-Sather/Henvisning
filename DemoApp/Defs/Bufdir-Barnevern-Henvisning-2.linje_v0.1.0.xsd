@@ -11,6 +11,16 @@ bjorge.saether@bufdir.no
 	<xs:complexType name="BarnInformasjonHenvisningType">
 		<xs:sequence>
 			<xs:element name="Barn" type="bv:BarnType"/>
+			<xs:element name="AntallTiltakFlyttinger" type="bv:AntallTiltakFlyttingerType"></xs:element>
+			<xs:element name="TiltakHistorikk" type="bv:Fritekst" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<ledetekst>Kronologisk oversikt over tiltak og begrunnelse</ledetekst>
+						<veiledning></veiledning>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+
 			<xs:element name="UtenlandskBakgrunn" type="bv:UtenlandskStatsborgerType" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
@@ -221,7 +231,7 @@ bjorge.saether@bufdir.no
 	<xs:complexType name="BarnMedNettverkType">
 		<xs:annotation>
 			<xs:appinfo>
-				<ledetekst>3 - Informasjon om barnet og omsorgssituasjon</ledetekst>
+				<ledetekst>3 - Informasjon om barnet, familie og omsorgssituasjon</ledetekst>
 			</xs:appinfo>
 		</xs:annotation>
 		<xs:sequence>
@@ -267,6 +277,10 @@ bjorge.saether@bufdir.no
 						<veiledning>Barnets nåsituasjon beskrevet med utgangspunkt i kunnskapsmodellens områder</veiledning>
 					</xs:appinfo>
 				</xs:annotation>
+				<xs:unique name="uniktOmrade">
+					<xs:selector xpath="Omrade"/>
+					<xs:field xpath="."/>
+				</xs:unique>
 			</xs:element>
 			<xs:element name="BistandSamletBehov" type="bv:Fritekst">
 				<xs:annotation>

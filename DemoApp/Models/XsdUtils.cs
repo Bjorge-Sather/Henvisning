@@ -150,6 +150,9 @@ namespace DemoApp.Models
             string controlName;
             XmlSchemaDatatype? datatype = null;
             var simpleType = GetSimpleType(prop);
+            var hintedControlType = GetAppInfoValue(prop, "controlType");
+            if (hintedControlType != "")
+                return hintedControlType;
             if (prop is XmlSchemaElement element)
             {
                 if (element.ElementSchemaType is XmlSchemaComplexType)
@@ -301,7 +304,9 @@ namespace DemoApp.Models
                 {
                     if (item is XmlSchemaAppInfo appInfo)
                     {
-                        return GetAppInfoElement(appInfo.Markup, appInfoElement);
+                        string tmpValue = GetAppInfoElement(appInfo.Markup, appInfoElement);
+                        if (tmpValue != "")
+                            return tmpValue;
                     }
                 }
             }
@@ -337,6 +342,8 @@ namespace DemoApp.Models
                 return element.Name;
             else if (prop is XmlSchemaAttribute attribute)
                 return attribute.Name;
+            else if (prop is XmlSchemaType type)
+                return type.Name;
             return "";
         }
 
@@ -355,5 +362,29 @@ namespace DemoApp.Models
             return result;
         }
 
+        public static XmlSchemaAnnotated GetChildByPath(XmlSchemaAnnotated startingPoint, string xpath)
+        {
+            string[] pathArr = xpath.Split('/', StringSplitOptions.RemoveEmptyEntries & StringSplitOptions.TrimEntries);
+            var result = GetChildByPath(startingPoint, pathArr);
+            if (result == null)
+                throw new Exception($"{GetName(startingPoint)}/{xpath} not found");
+            return result;
+        }
+        internal static XmlSchemaAnnotated? GetChildByPath(XmlSchemaAnnotated startingPoint, string[] pathArr)
+        {
+            var child1stLevel = FindByXPath(startingPoint, pathArr[0]);
+            if (child1stLevel.Count == 0)
+                return null;
+            if (pathArr.Length > 1) // neste nivå i path
+                return GetChildByPath(child1stLevel[0], pathArr.Skip(1).ToArray());
+            return child1stLevel[0];
+        }
+
+        internal static bool PropIsMandatory(XmlSchemaAnnotated prop)
+        {
+            if (prop is XmlSchemaElement element)
+                return element.MinOccurs > 0;
+            return false;
+        }
     }
 }

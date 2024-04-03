@@ -3,7 +3,7 @@
 @model DemoApp.Models.ViewModels.PropertyRendererModel
 @{
     var prefilled = TestdataGenerator.GetPrefilledValueFor(Model.Values, Model.GetId());
-    bool disable = (prefilled?.OpenForEdit == false);
+    bool disable = (prefilled?.OpenToEdit == false);
     bool check = prefilled?.Value == true.ToString();
     string checkedStr = (check) ? "checked" : "";
 

@@ -2,15 +2,25 @@
 using System.Xml.Schema;
 namespace DemoApp.Models.ViewModels
 {
-    public class PropertyRendererModel(string xPath, XmlSchemaAnnotated prop, List<PrefilledValue> values)
+    public class PropertyRendererModel(string xPath, XmlSchemaAnnotated prop, List<PrefilledValue> values, XmlSchemaAnnotated skipProp = null)
     {
         public string XPath { get; } = $"{xPath}/{XsdUtils.GetName(prop)}";
         public XmlSchemaAnnotated Prop { get; } = prop;
         public List<PrefilledValue> Values { get; } = values;
 
+        public XmlSchemaAnnotated? SkipProp { get; } = skipProp;
+
         public string? GetCaption(bool fallbackToName)
         {
             return XsdUtils.GetCaption(Prop, fallbackToName);
+        }
+
+        public bool Mandatory
+        {
+            get
+            {
+                return XsdUtils.PropIsMandatory(Prop);
+            }
         }
 
         public DateTime Start { get; set; } = DateTime.Now.Date;
@@ -36,6 +46,14 @@ namespace DemoApp.Models.ViewModels
         public int GetMaxLength()
         {
             return XsdUtils.GetMaxLength(Prop);
+        }
+
+        public XmlSchemaAnnotated GetChildTypeDefinition(string path)
+        {
+            var child = XsdUtils.GetChildByPath(Prop, path);
+            if (child != null)
+                return XsdUtils.GetSimpleType(child);
+            return null;
         }
 
     }

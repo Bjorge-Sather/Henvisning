@@ -136,6 +136,29 @@ namespace DemoApp.Models.Fagsystem
             return barn;
         }
 
+        private static List<Sak> addSaksdata()
+        {
+            List<Sak> saker =
+                [
+                    new Sak() // Bjarne Wern
+                    {
+                        Id = 10000001,
+                        BarnId = 10000001,
+                        Saksdata = new Dictionary<string, string>()
+                        {
+                            { "FellesInfo/BarnMedNettverk/BarnetsSituasjon/Omrade", "Omrade=1|Beskrivelse=" },
+                        }
+                    },
+
+                    new Sak() // Birgitte Wern
+                    {
+                        Id = 10000002,
+                        BarnId = 10000002,
+                    }
+                    ];
+            return saker;
+        }
+
         private static void initBarn(List<Barn> barn, List<FREG_Person> freg)
         {
             foreach (Barn b in barn)
@@ -173,21 +196,34 @@ namespace DemoApp.Models.Fagsystem
         {
             List<PrefilledValue> result = [];
             var bvTjeneste = GetBarneverntjeneste();
+            result.Add(new("MeldingHeader/Id", Guid.NewGuid().ToString(), false));
+            result.Add(new("MeldingHeader/Type", "1", false));
             result.Add(new("MeldingHeader/Avsender/Organisasjonsnummer", bvTjeneste.Organisasjonsnummer, false));
             result.Add(new("MeldingHeader/Avsender/Kommunenummer", bvTjeneste.Kommunenummer, false));
             result.Add(new("MeldingHeader/Avsender/Kommunenavn", bvTjeneste.KommuneNavn, false));
             result.Add(new("MeldingHeader/Avsender/Bydelsnummer", bvTjeneste.Bydelsnummer, false));
             result.Add(new("MeldingHeader/Avsender/Bydelsnavn", bvTjeneste.Bydelsnavn, false));
+            result.Add(new("MeldingHeader/Fagsystem/Leverandor", "Visma", false));
+            result.Add(new("MeldingHeader/Fagsystem/Navn", "Visma Flyt Barnevern", false));
+            result.Add(new("MeldingHeader/Fagsystem/Versjon", "2.2.234", false));
 
             BarnSelectorModel model = new(request);
             var barn = model.selectedBarn;
 
+            result.Add(new("FellesInfo/Kontaktperson/Navn", "Bjørge Sæther", true));
+            result.Add(new("FellesInfo/Kontaktperson/Telefon", "90822239", true));
+            result.Add(new("FellesInfo/Kontaktperson/epost", "bjorge.saether@bufdir.no", true));
+            result.Add(new("FellesInfo/KontaktpersonLeder/Navn", "Kenneth Normann Hansen", true));
+            result.Add(new("FellesInfo/KontaktpersonLeder/Telefon", "90909090", true));
+            result.Add(new("FellesInfo/KontaktpersonLeder/epost", "kenneth.hansen@bufdir.no", true));
             result.Add(new("FellesInfo/BarnMedNettverk/BarnInformasjon/Barn/Fodselsnummer", barn.FREG_Person.Fodselsnummer, false));
             result.Add(new("FellesInfo/BarnMedNettverk/BarnInformasjon/Barn/Fodseldato", barn.FREG_Person.Fodselsdato.ToString("yyyy-MM-dd"), false));
             result.Add(new("FellesInfo/BarnMedNettverk/BarnInformasjon/Barn/KjonnFreg", barn.FREG_Person.Kjonn, false));
             result.Add(new("FellesInfo/BarnMedNettverk/BarnInformasjon/Barn/EMA", false.ToString(), false));
             result.Add(new("FellesInfo/BarnMedNettverk/BarnInformasjon/Barn/Ufodt", false.ToString(), false));
             result.Add(new("FellesInfo/BarnMedNettverk/BarnInformasjon/Barn/DUFnummer", "", false));
+            result.Add(new("FellesInfo/BarnMedNettverk/BarnInformasjon/TiltakHistorikk", @"01.02.2022 - 12.09.2022 Fosterhjem
+12.09.2022 - 20.10.2023 Omsorgsinstitusjon", true));
             return result;
         }
 

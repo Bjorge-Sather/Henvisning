@@ -72,9 +72,29 @@ Bjorge.Saether@bufdir.no
 	<xs:complexType name="UtenlandskStatsborgerType">
 		<xs:sequence>
 			<xs:element name="Statsborgerskap" type="StatsborgerskapType"/>
-			<xs:element name="Morsmål" type="MorsmalType"/>
-			<xs:element name="EtniskTilhorighet" type="EtniskTilhorighetType"/>
+			<xs:element name="Morsmal" type="MorsmalType">
+				<xs:annotation>
+					<xs:appinfo>
+						<ledetekst>Morsmål</ledetekst>
+						<veiledning></veiledning>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EtniskTilhorighet" type="EtniskTilhorighetType">
+				<xs:annotation>
+					<xs:appinfo>
+						<ledetekst>Etnisk tilhørighet</ledetekst>
+						<veiledning></veiledning>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
 			<xs:element name="BehovForTolk" type="xs:boolean">
+				<xs:annotation>
+					<xs:appinfo>
+						<ledetekst>Behov for tolk</ledetekst>
+						<veiledning></veiledning>
+					</xs:appinfo>
+				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
@@ -304,17 +324,35 @@ Bjorge.Saether@bufdir.no
 	<xs:complexType name="OmradeSituasjonType">
 		<xs:sequence>
 			<xs:element name="Omrade" type="KunnskapsmodellOmradeType">
-			</xs:element>
-			<xs:element name="Beskrivelse" type="Fritekst">
 				<xs:annotation>
-					<xs:documentation>
-			Vurdering av barnets situasjon på området
-			</xs:documentation>
+					<xs:appinfo>
+						<controlType>CheckboxEnum</controlType>
+						<controlVisible>Beskrivelse</controlVisible>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BeskrivelseFungering" type="Fritekst" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<ledetekst>Beskrivelse av barnets fungering</ledetekst>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BeskrivelseBehov" type="Fritekst" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<ledetekst>Vurdering av behov for bistand</ledetekst>
+					</xs:appinfo>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="BarnetsSituasjonType">
+		<xs:annotation>
+			<xs:appinfo>
+				<iterer>Omrade/Omrade</iterer>
+			</xs:appinfo>
+		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="Omrade" type="OmradeSituasjonType" maxOccurs="unbounded"/>
 		</xs:sequence>
@@ -788,7 +826,7 @@ Bjorge.Saether@bufdir.no
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 						<xs:minLength value="1"/>
-						<xs:maxLength value="250"/>
+						<xs:maxLength value="70"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -812,7 +850,7 @@ Bjorge.Saether@bufdir.no
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 						<xs:minLength value="1"/>
-						<xs:maxLength value="250"/>
+						<xs:maxLength value="70"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -841,6 +879,16 @@ Bjorge.Saether@bufdir.no
 			<xs:enumeration value="9"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="AntallTiltakFlyttingerType">
+		<xs:annotation>
+			<xs:appinfo>
+				<ledetekst>Antall ganger barnet har vært plassert i tiltak/flyttinger</ledetekst>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="\d+"></xs:pattern>
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:complexType name="MedvirkningType">
 		<xs:annotation>
 			<xs:appinfo>
@@ -858,8 +906,14 @@ Bjorge.Saether@bufdir.no
 			<xs:element name="InformasjonGittBarnet" type="Fritekst" >
 				<xs:annotation>
 					<xs:appinfo>
-						<ledetekst>Hvilken informasjon om fosterhjem og henvisning til fosterhjem er gitt til barnet?
-					Hvordan har barnevernstjenesten sikret at barnet utelukkende har fått og forstått informasjon tilpasset alder og modenhet?"</ledetekst>
+						<ledetekst>Hvilken informasjon om fosterhjem og henvisning til fosterhjem er gitt til barnet?</ledetekst>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InformasjonForstatt" type="Fritekst" >
+				<xs:annotation>
+					<xs:appinfo>
+						<ledetekst>Hvordan har barnevernstjenesten sikret at barnet utelukkende har fått og forstått informasjon tilpasset alder og modenhet?</ledetekst>
 					</xs:appinfo>
 				</xs:annotation>
 			</xs:element>
@@ -877,7 +931,7 @@ Har barnet fritt og uhindret fått fylle ut sin egen del av skjemaet?
 			<xs:element name="VektingAvBarnetsSysnpunkt" type="Fritekst">
 				<xs:annotation>
 					<xs:appinfo>
-						<ledetekst>Vekting av barnets synspunkt</ledetekst>
+						<ledetekst>Vekting av barnets synspunkter</ledetekst>
 						<veiledning>-	Hvordan er barnets synspunkter, meninger og tanker vektlagt i forhold som vedrører barnet?
 -	Hvilke ønsker har barnet knyttet til medvirkning fremover i tid?
 </veiledning>

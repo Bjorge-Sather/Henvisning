@@ -1,5 +1,6 @@
 ﻿@using DemoApp.Models
 @using DemoApp.Models.ViewModels
+@using System.Xml.Schema
 @model PropertyRendererModel
 @{
     var caption = Model.GetCaption(false);
@@ -7,21 +8,34 @@
     var description = Model.GetDescription();
     bool synligGruppe = !string.IsNullOrEmpty(caption);
     string cssClass = (synligGruppe) ? "synlig_gruppe" : "anonym_gruppe";
-    <div class="@cssClass" id="@Model.GetId()" >
+    string iterate = (Model.Prop != null) ? XsdUtils.GetAppInfoValue(Model.Prop, "iterer") : "";
+    <div class="@cssClass" id="@Model.GetId()">
         @if (synligGruppe)
         {
             <span class="gruppetekst">@caption</span>
             @await Html.PartialAsync($"/Pages/Partial/Beskrivelse.cshtml", description)
         }
-        @foreach (var element in elements)
+        @if (iterate != "")
         {
-            <div class="variabel">
-            @{
-                var elementModel = new PropertyRendererModel($"{Model.XPath}", element, Model.Values);
-                string controlName = XsdUtils.GetControlNameForProperty(element);
+            var elementModel = new PropertyIteratorRendererModel($"{Model.XPath}", Model.Prop, Model.Values, iterate);
+            @await Html.PartialAsync($"/Pages/Partial/Iterator.cshtml", elementModel)
+        }
+        else
+        {
+            @foreach (var element in elements)
+            {
+                bool skipRender = Model.SkipProp != null && element is XmlSchemaElement el && el.ElementType == Model.SkipProp;
+                if (!skipRender)
+                {
+                    <div class="variabel">
+                        @{
+                            var elementModel = new PropertyRendererModel($"{Model.XPath}", element, Model.Values);
+                            string controlName = XsdUtils.GetControlNameForProperty(element);
+                        }
+                        @await Html.PartialAsync($"/Pages/Partial/{controlName}.cshtml", elementModel)
+                    </div>
+                }
             }
-            @await Html.PartialAsync($"/Pages/Partial/{controlName}.cshtml", elementModel)
-            </div>
         }
     </div>
 }

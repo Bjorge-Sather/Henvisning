@@ -95,6 +95,14 @@ body {
     margin-right: 10px;
 }
 
+.obligatorisk_markor {
+    color: red;
+    padding-left: 3px;
+}
+.disabled_button .obligatorisk_markor {
+    color: silver;
+    padding-left: 3px;
+}
 .disabled_button {
     color: silver !important;
 }
