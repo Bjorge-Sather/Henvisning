@@ -6,6 +6,7 @@
 @using System.Xml
 @model DemoApp.Pages.MeldingModel
 @{
+    ViewData["Title"] = "Melding";
     XmlSchemaElement? header = null;
     XmlSchemaElement? selectedElement = null;
         <span class="skjemavelger_tekst">Skjema:</span>
@@ -45,23 +46,25 @@
                                             }
                                             else
                                             {
-                                                <option value="@particle.QualifiedName">@caption</option>
-                                            }
+                                            <option value="@particle.QualifiedName">@caption</option>
                                         }
                                     }
                                 }
-                                else
+                            }
+                            else
+                            {
+                                bool selected = false;
+                                if (Model.SelectedElementType == rotElement.QualifiedName.ToString())
                                 {
-                                    bool selected = false;
-                                    if (Model.SelectedElementType == rotElement.QualifiedName.ToString())
-                                    {
-                                        selectedElement = rotElement;
-                                        selected = true;
-                                    }
-                                    string? caption = XsdUtils.GetCaption(rotElement, true);
-                                    if (selected)
-                                    {
-                                        <option value="@rotElement.QualifiedName" selected>@caption</option>
+                                    selectedElement = rotElement;
+                                    selected = true;
+                                }
+                                string? caption = XsdUtils.GetCaption(rotElement, true);
+                                if (selected)
+                                {
+                                    ViewData["Title"] = caption;
+                                    <option value="@rotElement.QualifiedName" selected>@caption</option>
+
                                     }
                                     else
                                     {

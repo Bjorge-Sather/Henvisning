@@ -2,7 +2,7 @@
 using System.Xml.Schema;
 namespace DemoApp.Models.ViewModels
 {
-    public class PropertyRendererModel(string xPath, XmlSchemaAnnotated prop, List<PrefilledValue> values, XmlSchemaAnnotated skipProp = null)
+    public class PropertyRendererModel(string xPath, XmlSchemaAnnotated prop, List<PrefilledValue> values, XmlSchemaAnnotated? skipProp = null)
     {
         public string XPath { get; } = $"{xPath}/{XsdUtils.GetName(prop)}";
         public XmlSchemaAnnotated Prop { get; } = prop;
@@ -48,7 +48,7 @@ namespace DemoApp.Models.ViewModels
             return XsdUtils.GetMaxLength(Prop);
         }
 
-        public XmlSchemaAnnotated GetChildTypeDefinition(string path)
+        public XmlSchemaAnnotated? GetChildTypeDefinition(string path)
         {
             var child = XsdUtils.GetChildByPath(Prop, path);
             if (child != null)

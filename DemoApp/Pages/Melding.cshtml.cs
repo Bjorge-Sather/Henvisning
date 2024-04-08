@@ -24,7 +24,7 @@ namespace DemoApp.Pages
             PrefillValues = TestdataGenerator.GetPrefillValues(Request);
         }
 
-        public List<PrefilledValue> PrefillValues { get; set; }
+        public List<PrefilledValue>? PrefillValues { get; set; }
         public string MeldingId { get; set; } = "";
 
         public string SelectedElementType { get; set; } = "";

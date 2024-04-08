@@ -16,10 +16,10 @@ namespace DemoApp.Pages
             Init();
         }
 
-        public Barneverntjeneste BVtjeneste { get; set; }
+        public Barneverntjeneste? BVtjeneste { get; set; }
 
-        public XmlSchemaAnnotated barnevernElement { get; set; }
-        public string path { get; set; }
+        public XmlSchemaAnnotated? barnevernElement { get; set; }
+        public string? path { get; set; }
         public void Init()
         {
             BVtjeneste = TestdataGenerator.GetBarneverntjeneste();

@@ -7,8 +7,9 @@
     var description = Model.GetDescription();
     bool synligGruppe = !string.IsNullOrEmpty(caption);
     string cssClass = (synligGruppe) ? "synlig_gruppe" : "anonym_gruppe";
-    var enumType = Model.GetIterateTypeDefinition();
-    string enumTypeName = XsdUtils.GetName(enumType);
+    var enumType = Model.GetIterateTypeDefinition()
+        ?? throw new Exception($"Could not find type {Model.Prop.ToString()}");
+    string enumTypeName = XsdUtils.GetName(enumType) ?? "";
     var kodeliste = XsdUtils.GetKodeliste(enumTypeName);
     @foreach (var kode in kodeliste!.koder!)
         {

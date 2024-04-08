@@ -365,9 +365,8 @@ namespace DemoApp.Models
         public static XmlSchemaAnnotated GetChildByPath(XmlSchemaAnnotated startingPoint, string xpath)
         {
             string[] pathArr = xpath.Split('/', StringSplitOptions.RemoveEmptyEntries & StringSplitOptions.TrimEntries);
-            var result = GetChildByPath(startingPoint, pathArr);
-            if (result == null)
-                throw new Exception($"{GetName(startingPoint)}/{xpath} not found");
+            var result = GetChildByPath(startingPoint, pathArr)
+                ?? throw new Exception($"{GetName(startingPoint)}/{xpath} not found");
             return result;
         }
         internal static XmlSchemaAnnotated? GetChildByPath(XmlSchemaAnnotated startingPoint, string[] pathArr)

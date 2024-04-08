@@ -17,14 +17,14 @@
         }
         @if (iterate != "")
         {
-            var elementModel = new PropertyIteratorRendererModel($"{Model.XPath}", Model.Prop, Model.Values, iterate);
+            var elementModel = new PropertyIteratorRendererModel($"{Model.XPath}", Model.Prop ?? throw new Exception("Model=null"), Model.Values, iterate);
             @await Html.PartialAsync($"/Pages/Partial/Iterator.cshtml", elementModel)
         }
         else
         {
             @foreach (var element in elements)
             {
-                bool skipRender = Model.SkipProp != null && element is XmlSchemaElement el && el.ElementType == Model.SkipProp;
+                bool skipRender = Model.SkipProp != null && element is XmlSchemaElement el && el.ElementSchemaType == Model.SkipProp;
                 if (!skipRender)
                 {
                     <div class="variabel">
