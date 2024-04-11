@@ -80,11 +80,13 @@
             <hr />
             @if (selectedElement != null && header != null)
             {
+                
                 var values = Model.PrefillValues;
                 @await Html.PartialAsync("/Pages/Partial/Gruppe.cshtml", new PropertyRendererModel("", header, values))
                 @await Html.PartialAsync("/Pages/Partial/Gruppe.cshtml", new PropertyRendererModel("", selectedElement, values))
-                <input type="submit" value="Send/Lagre" />
-            }
+            <input name="Send" type="submit" value="Send/Lagre" />
+            <input name="LagHTML" type="submit" value="Lag HTML" />
+        }
 
     </div>
 }
