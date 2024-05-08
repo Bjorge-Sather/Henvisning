@@ -24,7 +24,7 @@ namespace DemoApp.Models.Fagsystem
                     Fodselsdato = new DateTime(2012, 12, 12),
                     Fodselsnummer = "12121241555",
                     Graderingsnivaa = AdresseGradering.ugradert,
-                    Kjonn = "1"
+                    Kjonn = "Mann"
                 },
                 new()
                 {
@@ -34,7 +34,7 @@ namespace DemoApp.Models.Fagsystem
                     Fodselsdato = new DateTime(2010, 10, 10),
                     Fodselsnummer = "10101041444",
                     Graderingsnivaa = AdresseGradering.ugradert,
-                    Kjonn = "2"
+                    Kjonn = "Kvinne"
                 },
                 new()
                 {
@@ -44,7 +44,7 @@ namespace DemoApp.Models.Fagsystem
                     Fodselsdato = new DateTime(1990, 10, 10),
                     Fodselsnummer = "10109051455",
                     Graderingsnivaa = AdresseGradering.ugradert,
-                    Kjonn = "2"
+                    Kjonn = "Kvinne"
                 },
                 new()
                 {
@@ -54,7 +54,7 @@ namespace DemoApp.Models.Fagsystem
                     Fodselsdato = new DateTime(1990, 12, 12),
                     Fodselsnummer = "12129051555",
                     Graderingsnivaa = AdresseGradering.ugradert,
-                    Kjonn = "1"
+                    Kjonn = "Mann"
                 },
                 new()
                 {
@@ -64,7 +64,7 @@ namespace DemoApp.Models.Fagsystem
                     Fodselsdato = new DateTime(1949, 02, 02),
                     Fodselsnummer = "02024953555",
                     Graderingsnivaa = AdresseGradering.ugradert,
-                    Kjonn = "1"
+                    Kjonn = "Mann"
                 }
                 ];
             return personer;

@@ -22,7 +22,7 @@ namespace DemoApp.Pages
         {
             var liste = TestdataGenerator.GetTestdata();
             Utils.GetRequestParams(Request, out Dictionary<string, string> queryParams);
-            string barnId = Utils.GetRequestValue(queryParams, "barn_selector");
+            string barnId = Utils.GetRequestValue(queryParams, "barn_id");
             if (!string.IsNullOrEmpty(barnId))
                 selectedBarn = liste.FirstOrDefault(b => b.Id.ToString() == barnId);
 
